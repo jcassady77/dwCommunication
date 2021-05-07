@@ -1,0 +1,8 @@
+prefix=/home/rog/Documents/USASOC/devel
+
+Name: dw_listener
+Description: Description of dw_listener
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
