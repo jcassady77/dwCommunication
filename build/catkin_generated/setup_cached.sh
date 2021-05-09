@@ -8,3 +8,4 @@
 
 # modified environment variables
 export PWD='/home/rog/Documents/USASOC/build'
+export PYTHONPATH="/home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages:$PYTHONPATH"

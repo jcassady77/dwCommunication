@@ -3,6 +3,6 @@ prefix=/home/rog/Documents/USASOC/devel
 Name: dw_listener
 Description: Description of dw_listener
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/rog/Documents/USASOC/devel/include
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: message_runtime

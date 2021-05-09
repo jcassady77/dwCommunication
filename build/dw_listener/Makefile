@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -80,17 +68,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -101,6 +78,17 @@ test:
 test/fast: test
 
 .PHONY : test/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -135,6 +123,18 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/rog/Documents/USASOC/build/CMakeFiles /home/rog/Documents/USASOC/build/dw_listener/CMakeFiles/progress.marks
@@ -168,6 +168,141 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+dw_listener/CMakeFiles/dw_node.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_node.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_node.dir/rule
+
+# Convenience name for target.
+dw_node: dw_listener/CMakeFiles/dw_node.dir/rule
+
+.PHONY : dw_node
+
+# fast build rule for target.
+dw_node/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_node.dir/build.make dw_listener/CMakeFiles/dw_node.dir/build
+.PHONY : dw_node/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_genpy.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_genpy.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_genpy.dir/rule
+
+# Convenience name for target.
+dw_listener_genpy: dw_listener/CMakeFiles/dw_listener_genpy.dir/rule
+
+.PHONY : dw_listener_genpy
+
+# fast build rule for target.
+dw_listener_genpy/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_genpy.dir/build.make dw_listener/CMakeFiles/dw_listener_genpy.dir/build
+.PHONY : dw_listener_genpy/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_generate_messages_nodejs.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_generate_messages_nodejs.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+dw_listener_generate_messages_nodejs: dw_listener/CMakeFiles/dw_listener_generate_messages_nodejs.dir/rule
+
+.PHONY : dw_listener_generate_messages_nodejs
+
+# fast build rule for target.
+dw_listener_generate_messages_nodejs/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_generate_messages_nodejs.dir/build.make dw_listener/CMakeFiles/dw_listener_generate_messages_nodejs.dir/build
+.PHONY : dw_listener_generate_messages_nodejs/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_genlisp.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_genlisp.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_genlisp.dir/rule
+
+# Convenience name for target.
+dw_listener_genlisp: dw_listener/CMakeFiles/dw_listener_genlisp.dir/rule
+
+.PHONY : dw_listener_genlisp
+
+# fast build rule for target.
+dw_listener_genlisp/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_genlisp.dir/build.make dw_listener/CMakeFiles/dw_listener_genlisp.dir/build
+.PHONY : dw_listener_genlisp/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_geneus.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_geneus.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_geneus.dir/rule
+
+# Convenience name for target.
+dw_listener_geneus: dw_listener/CMakeFiles/dw_listener_geneus.dir/rule
+
+.PHONY : dw_listener_geneus
+
+# fast build rule for target.
+dw_listener_geneus/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_geneus.dir/build.make dw_listener/CMakeFiles/dw_listener_geneus.dir/build
+.PHONY : dw_listener_geneus/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/rule
+
+# Convenience name for target.
+dw_listener_generate_messages_py: dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/rule
+
+.PHONY : dw_listener_generate_messages_py
+
+# fast build rule for target.
+dw_listener_generate_messages_py/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/build.make dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/build
+.PHONY : dw_listener_generate_messages_py/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_generate_messages_lisp.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_generate_messages_lisp.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+dw_listener_generate_messages_lisp: dw_listener/CMakeFiles/dw_listener_generate_messages_lisp.dir/rule
+
+.PHONY : dw_listener_generate_messages_lisp
+
+# fast build rule for target.
+dw_listener_generate_messages_lisp/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_generate_messages_lisp.dir/build.make dw_listener/CMakeFiles/dw_listener_generate_messages_lisp.dir/build
+.PHONY : dw_listener_generate_messages_lisp/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_generate_messages_eus.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_generate_messages_eus.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+dw_listener_generate_messages_eus: dw_listener/CMakeFiles/dw_listener_generate_messages_eus.dir/rule
+
+.PHONY : dw_listener_generate_messages_eus
+
+# fast build rule for target.
+dw_listener_generate_messages_eus/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_generate_messages_eus.dir/build.make dw_listener/CMakeFiles/dw_listener_generate_messages_eus.dir/build
+.PHONY : dw_listener_generate_messages_eus/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_generate_messages_cpp.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_generate_messages_cpp.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+dw_listener_generate_messages_cpp: dw_listener/CMakeFiles/dw_listener_generate_messages_cpp.dir/rule
+
+.PHONY : dw_listener_generate_messages_cpp
+
+# fast build rule for target.
+dw_listener_generate_messages_cpp/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_generate_messages_cpp.dir/build.make dw_listener/CMakeFiles/dw_listener_generate_messages_cpp.dir/build
+.PHONY : dw_listener_generate_messages_cpp/fast
+
+# Convenience name for target.
 dw_listener/CMakeFiles/roscpp_generate_messages_py.dir/rule:
 	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/roscpp_generate_messages_py.dir/rule
 .PHONY : dw_listener/CMakeFiles/roscpp_generate_messages_py.dir/rule
@@ -198,19 +333,19 @@ roscpp_generate_messages_eus/fast:
 .PHONY : roscpp_generate_messages_eus/fast
 
 # Convenience name for target.
-dw_listener/CMakeFiles/dw_node.dir/rule:
-	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_node.dir/rule
-.PHONY : dw_listener/CMakeFiles/dw_node.dir/rule
+dw_listener/CMakeFiles/dw_listener_gencpp.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_gencpp.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_gencpp.dir/rule
 
 # Convenience name for target.
-dw_node: dw_listener/CMakeFiles/dw_node.dir/rule
+dw_listener_gencpp: dw_listener/CMakeFiles/dw_listener_gencpp.dir/rule
 
-.PHONY : dw_node
+.PHONY : dw_listener_gencpp
 
 # fast build rule for target.
-dw_node/fast:
-	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_node.dir/build.make dw_listener/CMakeFiles/dw_node.dir/build
-.PHONY : dw_node/fast
+dw_listener_gencpp/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_gencpp.dir/build.make dw_listener/CMakeFiles/dw_listener_gencpp.dir/build
+.PHONY : dw_listener_gencpp/fast
 
 # Convenience name for target.
 dw_listener/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
@@ -226,6 +361,21 @@ roscpp_generate_messages_lisp: dw_listener/CMakeFiles/roscpp_generate_messages_l
 roscpp_generate_messages_lisp/fast:
 	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make dw_listener/CMakeFiles/roscpp_generate_messages_lisp.dir/build
 .PHONY : roscpp_generate_messages_lisp/fast
+
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_gennodejs.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_gennodejs.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_gennodejs.dir/rule
+
+# Convenience name for target.
+dw_listener_gennodejs: dw_listener/CMakeFiles/dw_listener_gennodejs.dir/rule
+
+.PHONY : dw_listener_gennodejs
+
+# fast build rule for target.
+dw_listener_gennodejs/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_gennodejs.dir/build.make dw_listener/CMakeFiles/dw_listener_gennodejs.dir/build
+.PHONY : dw_listener_gennodejs/fast
 
 # Convenience name for target.
 dw_listener/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
@@ -363,6 +513,21 @@ std_msgs_generate_messages_eus/fast:
 .PHONY : std_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
+dw_listener/CMakeFiles/_dw_listener_generate_messages_check_deps_nodeData.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/_dw_listener_generate_messages_check_deps_nodeData.dir/rule
+.PHONY : dw_listener/CMakeFiles/_dw_listener_generate_messages_check_deps_nodeData.dir/rule
+
+# Convenience name for target.
+_dw_listener_generate_messages_check_deps_nodeData: dw_listener/CMakeFiles/_dw_listener_generate_messages_check_deps_nodeData.dir/rule
+
+.PHONY : _dw_listener_generate_messages_check_deps_nodeData
+
+# fast build rule for target.
+_dw_listener_generate_messages_check_deps_nodeData/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/_dw_listener_generate_messages_check_deps_nodeData.dir/build.make dw_listener/CMakeFiles/_dw_listener_generate_messages_check_deps_nodeData.dir/build
+.PHONY : _dw_listener_generate_messages_check_deps_nodeData/fast
+
+# Convenience name for target.
 dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 .PHONY : dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
@@ -407,6 +572,21 @@ std_msgs_generate_messages_py/fast:
 	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/std_msgs_generate_messages_py.dir/build.make dw_listener/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
+# Convenience name for target.
+dw_listener/CMakeFiles/dw_listener_generate_messages.dir/rule:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f CMakeFiles/Makefile2 dw_listener/CMakeFiles/dw_listener_generate_messages.dir/rule
+.PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages.dir/rule
+
+# Convenience name for target.
+dw_listener_generate_messages: dw_listener/CMakeFiles/dw_listener_generate_messages.dir/rule
+
+.PHONY : dw_listener_generate_messages
+
+# fast build rule for target.
+dw_listener_generate_messages/fast:
+	cd /home/rog/Documents/USASOC/build && $(MAKE) -f dw_listener/CMakeFiles/dw_listener_generate_messages.dir/build.make dw_listener/CMakeFiles/dw_listener_generate_messages.dir/build
+.PHONY : dw_listener_generate_messages/fast
+
 src/dw_node.o: src/dw_node.cpp.o
 
 .PHONY : src/dw_node.o
@@ -440,16 +620,25 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... rebuild_cache"
+	@echo "... dw_node"
+	@echo "... dw_listener_genpy"
+	@echo "... dw_listener_generate_messages_nodejs"
+	@echo "... dw_listener_genlisp"
+	@echo "... dw_listener_geneus"
 	@echo "... test"
+	@echo "... dw_listener_generate_messages_py"
+	@echo "... dw_listener_generate_messages_lisp"
+	@echo "... dw_listener_generate_messages_eus"
+	@echo "... rebuild_cache"
+	@echo "... dw_listener_generate_messages_cpp"
 	@echo "... list_install_components"
 	@echo "... roscpp_generate_messages_py"
 	@echo "... roscpp_generate_messages_eus"
-	@echo "... dw_node"
 	@echo "... edit_cache"
+	@echo "... dw_listener_gencpp"
 	@echo "... roscpp_generate_messages_lisp"
+	@echo "... dw_listener_gennodejs"
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_cpp"
@@ -460,9 +649,12 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... std_msgs_generate_messages_eus"
+	@echo "... _dw_listener_generate_messages_check_deps_nodeData"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... install/strip"
+	@echo "... dw_listener_generate_messages"
 	@echo "... src/dw_node.o"
 	@echo "... src/dw_node.i"
 	@echo "... src/dw_node.s"

@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/rog/Documents/USASOC/devel/include/dw_listener/nodeData.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp
 serial/serial.h
 /home/rog/Documents/USASOC/src/dw_listener/src/serial/serial.h
@@ -24,6 +40,8 @@ iostream
 cstdio
 -
 unistd.h
+-
+dw_listener/nodeData.h
 -
 
 /home/rog/Documents/USASOC/src/serial/include/serial/serial.h
