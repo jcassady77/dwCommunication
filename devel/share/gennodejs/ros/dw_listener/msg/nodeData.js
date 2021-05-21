@@ -22,6 +22,7 @@ class nodeData {
       this.rangeNum = null;
       this.timeOfReception = null;
       this.distance = null;
+      this.degrees = null;
       this.Xcoord = null;
       this.Ycoord = null;
       this.clockOffset = null;
@@ -54,6 +55,12 @@ class nodeData {
       }
       else {
         this.distance = 0;
+      }
+      if (initObj.hasOwnProperty('degrees')) {
+        this.degrees = initObj.degrees
+      }
+      else {
+        this.degrees = 0;
       }
       if (initObj.hasOwnProperty('Xcoord')) {
         this.Xcoord = initObj.Xcoord
@@ -110,6 +117,8 @@ class nodeData {
     bufferOffset = _serializer.int64(obj.timeOfReception, buffer, bufferOffset);
     // Serialize message field [distance]
     bufferOffset = _serializer.int64(obj.distance, buffer, bufferOffset);
+    // Serialize message field [degrees]
+    bufferOffset = _serializer.int64(obj.degrees, buffer, bufferOffset);
     // Serialize message field [Xcoord]
     bufferOffset = _serializer.int64(obj.Xcoord, buffer, bufferOffset);
     // Serialize message field [Ycoord]
@@ -139,6 +148,8 @@ class nodeData {
     data.timeOfReception = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [distance]
     data.distance = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [degrees]
+    data.degrees = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [Xcoord]
     data.Xcoord = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [Ycoord]
@@ -159,7 +170,7 @@ class nodeData {
   static getMessageSize(object) {
     let length = 0;
     length += object.tagAddress.length;
-    return length + 84;
+    return length + 92;
   }
 
   static datatype() {
@@ -169,7 +180,7 @@ class nodeData {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'de0a8cf43c7496a6d5ba6e0f18822096';
+    return '3a45b84e69effa6a1887ddf80ea9ae1c';
   }
 
   static messageDefinition() {
@@ -180,6 +191,7 @@ class nodeData {
     int64 rangeNum
     int64 timeOfReception
     int64 distance
+    int64 degrees
     int64 Xcoord
     int64 Ycoord
     int64 clockOffset
@@ -223,6 +235,13 @@ class nodeData {
     }
     else {
       resolved.distance = 0
+    }
+
+    if (msg.degrees !== undefined) {
+      resolved.degrees = msg.degrees;
+    }
+    else {
+      resolved.degrees = 0
     }
 
     if (msg.Xcoord !== undefined) {

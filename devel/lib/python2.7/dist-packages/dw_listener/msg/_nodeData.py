@@ -8,7 +8,7 @@ import struct
 
 
 class nodeData(genpy.Message):
-  _md5sum = "de0a8cf43c7496a6d5ba6e0f18822096"
+  _md5sum = "3a45b84e69effa6a1887ddf80ea9ae1c"
   _type = "dw_listener/nodeData"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """
@@ -16,6 +16,7 @@ string tagAddress
 int64 rangeNum
 int64 timeOfReception
 int64 distance
+int64 degrees
 int64 Xcoord
 int64 Ycoord
 int64 clockOffset
@@ -24,8 +25,8 @@ int64 Xaccel
 int64 Yaccel
 int64 Zaccel
 """
-  __slots__ = ['tagAddress','rangeNum','timeOfReception','distance','Xcoord','Ycoord','clockOffset','serviceData','Xaccel','Yaccel','Zaccel']
-  _slot_types = ['string','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64']
+  __slots__ = ['tagAddress','rangeNum','timeOfReception','distance','degrees','Xcoord','Ycoord','clockOffset','serviceData','Xaccel','Yaccel','Zaccel']
+  _slot_types = ['string','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64']
 
   def __init__(self, *args, **kwds):
     """
@@ -35,7 +36,7 @@ int64 Zaccel
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       tagAddress,rangeNum,timeOfReception,distance,Xcoord,Ycoord,clockOffset,serviceData,Xaccel,Yaccel,Zaccel
+       tagAddress,rangeNum,timeOfReception,distance,degrees,Xcoord,Ycoord,clockOffset,serviceData,Xaccel,Yaccel,Zaccel
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -52,6 +53,8 @@ int64 Zaccel
         self.timeOfReception = 0
       if self.distance is None:
         self.distance = 0
+      if self.degrees is None:
+        self.degrees = 0
       if self.Xcoord is None:
         self.Xcoord = 0
       if self.Ycoord is None:
@@ -71,6 +74,7 @@ int64 Zaccel
       self.rangeNum = 0
       self.timeOfReception = 0
       self.distance = 0
+      self.degrees = 0
       self.Xcoord = 0
       self.Ycoord = 0
       self.clockOffset = 0
@@ -98,7 +102,7 @@ int64 Zaccel
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_10q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel))
+      buff.write(_get_struct_11q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -121,8 +125,8 @@ int64 Zaccel
         self.tagAddress = str[start:end]
       _x = self
       start = end
-      end += 80
-      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel,) = _get_struct_10q().unpack(str[start:end])
+      end += 88
+      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel,) = _get_struct_11q().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -142,7 +146,7 @@ int64 Zaccel
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_10q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel))
+      buff.write(_get_struct_11q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -166,8 +170,8 @@ int64 Zaccel
         self.tagAddress = str[start:end]
       _x = self
       start = end
-      end += 80
-      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel,) = _get_struct_10q().unpack(str[start:end])
+      end += 88
+      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel,) = _get_struct_11q().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -176,9 +180,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_10q = None
-def _get_struct_10q():
-    global _struct_10q
-    if _struct_10q is None:
-        _struct_10q = struct.Struct("<10q")
-    return _struct_10q
+_struct_11q = None
+def _get_struct_11q():
+    global _struct_11q
+    if _struct_11q is None:
+        _struct_11q = struct.Struct("<11q")
+    return _struct_11q

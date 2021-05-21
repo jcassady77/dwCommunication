@@ -14,7 +14,7 @@
 
 (defclass dw_listener::nodeData
   :super ros::object
-  :slots (_tagAddress _rangeNum _timeOfReception _distance _Xcoord _Ycoord _clockOffset _serviceData _Xaccel _Yaccel _Zaccel ))
+  :slots (_tagAddress _rangeNum _timeOfReception _distance _degrees _Xcoord _Ycoord _clockOffset _serviceData _Xaccel _Yaccel _Zaccel ))
 
 (defmethod dw_listener::nodeData
   (:init
@@ -23,6 +23,7 @@
     ((:rangeNum __rangeNum) 0)
     ((:timeOfReception __timeOfReception) 0)
     ((:distance __distance) 0)
+    ((:degrees __degrees) 0)
     ((:Xcoord __Xcoord) 0)
     ((:Ycoord __Ycoord) 0)
     ((:clockOffset __clockOffset) 0)
@@ -36,6 +37,7 @@
    (setq _rangeNum (round __rangeNum))
    (setq _timeOfReception (round __timeOfReception))
    (setq _distance (round __distance))
+   (setq _degrees (round __degrees))
    (setq _Xcoord (round __Xcoord))
    (setq _Ycoord (round __Ycoord))
    (setq _clockOffset (round __clockOffset))
@@ -56,6 +58,9 @@
   (:distance
    (&optional __distance)
    (if __distance (setq _distance __distance)) _distance)
+  (:degrees
+   (&optional __degrees)
+   (if __degrees (setq _degrees __degrees)) _degrees)
   (:Xcoord
    (&optional __Xcoord)
    (if __Xcoord (setq _Xcoord __Xcoord)) _Xcoord)
@@ -87,6 +92,8 @@
     ;; int64 _timeOfReception
     8
     ;; int64 _distance
+    8
+    ;; int64 _degrees
     8
     ;; int64 _Xcoord
     8
@@ -145,6 +152,18 @@
               (write-long (if (>= _distance 0) 0 #xffffffff) s))
              (t                                         ;; integer
               (write-long _distance s)(write-long (if (>= _distance 0) 0 #xffffffff) s)))
+     ;; int64 _degrees
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _degrees (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _degrees) (= (length (_degrees . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_degrees . bv) 0) 0) s)
+              (write-long (ash (elt (_degrees . bv) 1) -1) s))
+             ((and (class _degrees) (= (length (_degrees . bv)) 1)) ;; big1
+              (write-long (elt (_degrees . bv) 0) s)
+              (write-long (if (>= _degrees 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _degrees s)(write-long (if (>= _degrees 0) 0 #xffffffff) s)))
      ;; int64 _Xcoord
 #+(or :alpha :irix6 :x86_64)
        (progn (sys::poke _Xcoord (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
@@ -271,6 +290,18 @@
                       b0)
                     ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
                     (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _degrees
+#+(or :alpha :irix6 :x86_64)
+      (setf _degrees (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _degrees (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
    ;; int64 _Xcoord
 #+(or :alpha :irix6 :x86_64)
       (setf _Xcoord (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
@@ -359,7 +390,7 @@
    self)
   )
 
-(setf (get dw_listener::nodeData :md5sum-) "de0a8cf43c7496a6d5ba6e0f18822096")
+(setf (get dw_listener::nodeData :md5sum-) "3a45b84e69effa6a1887ddf80ea9ae1c")
 (setf (get dw_listener::nodeData :datatype-) "dw_listener/nodeData")
 (setf (get dw_listener::nodeData :definition-)
       "
@@ -367,6 +398,7 @@ string tagAddress
 int64 rangeNum
 int64 timeOfReception
 int64 distance
+int64 degrees
 int64 Xcoord
 int64 Ycoord
 int64 clockOffset
@@ -379,6 +411,6 @@ int64 Zaccel
 
 
 
-(provide :dw_listener/nodeData "de0a8cf43c7496a6d5ba6e0f18822096")
+(provide :dw_listener/nodeData "3a45b84e69effa6a1887ddf80ea9ae1c")
 
 

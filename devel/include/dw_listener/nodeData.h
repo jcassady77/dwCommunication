@@ -28,6 +28,7 @@ struct nodeData_
     , rangeNum(0)
     , timeOfReception(0)
     , distance(0)
+    , degrees(0)
     , Xcoord(0)
     , Ycoord(0)
     , clockOffset(0)
@@ -41,6 +42,7 @@ struct nodeData_
     , rangeNum(0)
     , timeOfReception(0)
     , distance(0)
+    , degrees(0)
     , Xcoord(0)
     , Ycoord(0)
     , clockOffset(0)
@@ -64,6 +66,9 @@ struct nodeData_
 
    typedef int64_t _distance_type;
   _distance_type distance;
+
+   typedef int64_t _degrees_type;
+  _degrees_type degrees;
 
    typedef int64_t _Xcoord_type;
   _Xcoord_type Xcoord;
@@ -119,6 +124,7 @@ bool operator==(const ::dw_listener::nodeData_<ContainerAllocator1> & lhs, const
     lhs.rangeNum == rhs.rangeNum &&
     lhs.timeOfReception == rhs.timeOfReception &&
     lhs.distance == rhs.distance &&
+    lhs.degrees == rhs.degrees &&
     lhs.Xcoord == rhs.Xcoord &&
     lhs.Ycoord == rhs.Ycoord &&
     lhs.clockOffset == rhs.clockOffset &&
@@ -182,12 +188,12 @@ struct MD5Sum< ::dw_listener::nodeData_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "de0a8cf43c7496a6d5ba6e0f18822096";
+    return "3a45b84e69effa6a1887ddf80ea9ae1c";
   }
 
   static const char* value(const ::dw_listener::nodeData_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xde0a8cf43c7496a6ULL;
-  static const uint64_t static_value2 = 0xd5ba6e0f18822096ULL;
+  static const uint64_t static_value1 = 0x3a45b84e69effa6aULL;
+  static const uint64_t static_value2 = 0x1887ddf80ea9ae1cULL;
 };
 
 template<class ContainerAllocator>
@@ -211,6 +217,7 @@ struct Definition< ::dw_listener::nodeData_<ContainerAllocator> >
 "int64 rangeNum\n"
 "int64 timeOfReception\n"
 "int64 distance\n"
+"int64 degrees\n"
 "int64 Xcoord\n"
 "int64 Ycoord\n"
 "int64 clockOffset\n"
@@ -240,6 +247,7 @@ namespace serialization
       stream.next(m.rangeNum);
       stream.next(m.timeOfReception);
       stream.next(m.distance);
+      stream.next(m.degrees);
       stream.next(m.Xcoord);
       stream.next(m.Ycoord);
       stream.next(m.clockOffset);
@@ -273,6 +281,8 @@ struct Printer< ::dw_listener::nodeData_<ContainerAllocator> >
     Printer<int64_t>::stream(s, indent + "  ", v.timeOfReception);
     s << indent << "distance: ";
     Printer<int64_t>::stream(s, indent + "  ", v.distance);
+    s << indent << "degrees: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.degrees);
     s << indent << "Xcoord: ";
     Printer<int64_t>::stream(s, indent + "  ", v.Xcoord);
     s << indent << "Ycoord: ";

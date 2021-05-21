@@ -39,14 +39,22 @@ int main(int argc, char **argv)
                 ROS_INFO("Incompatable Message Length:  %s", err.what());
             }
             //Displays raw string output post simplification
-            ROS_INFO("%s", msg.data.c_str());
+            //ROS_INFO("%s", msg.data.c_str());
             
             //Assign specific values to the nice message struct
             try {
                 msg1.tagAddress = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
                 msg1.rangeNum = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
-                ROS_INFO("%s", msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)).c_str());
-                
+                msg1.timeOfReception = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
+                msg1.distance = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
+                msg1.degrees = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
+                msg1.Xcoord = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
+                msg1.Ycoord = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
+                msg1.clockOffset = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
+                msg1.serviceData = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
+                msg1.Xaccel = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
+                msg1.Yaccel = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
+                msg1.Zaccel = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
 
             } catch(std::exception& err) {
                 ROS_INFO("Error while building nodeData:  %s", err.what());

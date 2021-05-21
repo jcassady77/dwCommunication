@@ -7,6 +7,8 @@
           TIMEOFRECEPTION
           DISTANCE-VAL
           DISTANCE
+          DEGREES-VAL
+          DEGREES
           XCOORD-VAL
           XCOORD
           YCOORD-VAL

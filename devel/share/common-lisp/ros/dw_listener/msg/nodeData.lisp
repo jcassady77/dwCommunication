@@ -27,6 +27,11 @@
     :initarg :distance
     :type cl:integer
     :initform 0)
+   (degrees
+    :reader degrees
+    :initarg :degrees
+    :type cl:integer
+    :initform 0)
    (Xcoord
     :reader Xcoord
     :initarg :Xcoord
@@ -92,6 +97,11 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dw_listener-msg:distance-val is deprecated.  Use dw_listener-msg:distance instead.")
   (distance m))
 
+(cl:ensure-generic-function 'degrees-val :lambda-list '(m))
+(cl:defmethod degrees-val ((m <nodeData>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dw_listener-msg:degrees-val is deprecated.  Use dw_listener-msg:degrees instead.")
+  (degrees m))
+
 (cl:ensure-generic-function 'Xcoord-val :lambda-list '(m))
 (cl:defmethod Xcoord-val ((m <nodeData>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dw_listener-msg:Xcoord-val is deprecated.  Use dw_listener-msg:Xcoord instead.")
@@ -155,6 +165,16 @@
     (cl:write-byte (cl:ldb (cl:byte 8 56) unsigned) ostream)
     )
   (cl:let* ((signed (cl:slot-value msg 'distance)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) unsigned) ostream)
+    )
+  (cl:let* ((signed (cl:slot-value msg 'degrees)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
     (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
@@ -284,6 +304,16 @@
       (cl:setf (cl:ldb (cl:byte 8 40) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'degrees) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'Xcoord) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
     (cl:let ((unsigned 0))
       (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
@@ -355,19 +385,20 @@
   "dw_listener/nodeData")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<nodeData>)))
   "Returns md5sum for a message object of type '<nodeData>"
-  "de0a8cf43c7496a6d5ba6e0f18822096")
+  "3a45b84e69effa6a1887ddf80ea9ae1c")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'nodeData)))
   "Returns md5sum for a message object of type 'nodeData"
-  "de0a8cf43c7496a6d5ba6e0f18822096")
+  "3a45b84e69effa6a1887ddf80ea9ae1c")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<nodeData>)))
   "Returns full string definition for message of type '<nodeData>"
-  (cl:format cl:nil "~%string tagAddress~%int64 rangeNum~%int64 timeOfReception~%int64 distance~%int64 Xcoord~%int64 Ycoord~%int64 clockOffset~%int64 serviceData~%int64 Xaccel~%int64 Yaccel~%int64 Zaccel~%~%~%"))
+  (cl:format cl:nil "~%string tagAddress~%int64 rangeNum~%int64 timeOfReception~%int64 distance~%int64 degrees~%int64 Xcoord~%int64 Ycoord~%int64 clockOffset~%int64 serviceData~%int64 Xaccel~%int64 Yaccel~%int64 Zaccel~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'nodeData)))
   "Returns full string definition for message of type 'nodeData"
-  (cl:format cl:nil "~%string tagAddress~%int64 rangeNum~%int64 timeOfReception~%int64 distance~%int64 Xcoord~%int64 Ycoord~%int64 clockOffset~%int64 serviceData~%int64 Xaccel~%int64 Yaccel~%int64 Zaccel~%~%~%"))
+  (cl:format cl:nil "~%string tagAddress~%int64 rangeNum~%int64 timeOfReception~%int64 distance~%int64 degrees~%int64 Xcoord~%int64 Ycoord~%int64 clockOffset~%int64 serviceData~%int64 Xaccel~%int64 Yaccel~%int64 Zaccel~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <nodeData>))
   (cl:+ 0
      4 (cl:length (cl:slot-value msg 'tagAddress))
+     8
      8
      8
      8
@@ -386,6 +417,7 @@
     (cl:cons ':rangeNum (rangeNum msg))
     (cl:cons ':timeOfReception (timeOfReception msg))
     (cl:cons ':distance (distance msg))
+    (cl:cons ':degrees (degrees msg))
     (cl:cons ':Xcoord (Xcoord msg))
     (cl:cons ':Ycoord (Ycoord msg))
     (cl:cons ':clockOffset (clockOffset msg))
