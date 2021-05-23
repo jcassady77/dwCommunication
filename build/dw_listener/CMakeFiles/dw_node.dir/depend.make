@@ -3,6 +3,7 @@
 
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/USASOC/devel/include/dw_listener/nodeData.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp
+dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/USASOC/src/serial/include/serial/serial.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/USASOC/src/serial/include/serial/v8stdint.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/ros/advertise_options.h
@@ -61,6 +62,7 @@ dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/r
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/ros/wall_timer.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
+dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/std_msgs/Int64.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/std_msgs/String.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h

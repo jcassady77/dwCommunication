@@ -1,7 +1,10 @@
+//#include "dw_node.h"
+
 #include "serial/serial.h"
 #include <stdio.h>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Int64.h"
 #include <sstream>
 #include <string>
 #include <iostream>
@@ -9,24 +12,61 @@
 #include <unistd.h>
 #include <dw_listener/nodeData.h>
 
+#define FILTER_SIZE = 10
+
+
 class dw_data {
     public:
-        string tagAddress;
-        int64 rangeNum;
-        int64 timeOfReception;
-        int64 distance;
-        int64 degrees;
-        int64 Xcoord;
-        int64 Ycoord;
-        int64 clockOffset;
-        int64 serviceData;
-        int64 Xaccel;
-        int64 Yaccel;
-        int64 Zaccel;
+        //Raw Data from Serial
+        std_msgs::String tagAddress;
+        std_msgs::Int64 rangeNum;
+        std_msgs::Int64 timeOfReception;
+        std_msgs::Int64 distance;
+        std_msgs::Int64 degrees;
+        std_msgs::Int64 Xcoord;
+        std_msgs::Int64 Ycoord;
+        std_msgs::Int64 clockOffset;
+        std_msgs::Int64 serviceData;
+        std_msgs::Int64 Xaccel;
+        std_msgs::Int64 Yaccel;
+        std_msgs::Int64 Zaccel;
 
+        //Interpreted Data
+        std_msgs::Int64 xHistory[FILTER_SIZE]
+        std_msgs::Int64 YHistory[FILTER_SIZE]
 
+        //Methods
+        dw_listener::nodeData buildRosMsg();
+        void dw_data::update();
+};
+
+dw_listener::nodeData dw_data::buildRosMsg() {
+    dw_listener::nodeData msg;
+    msg.tagAddress = this->tagAddress;
+    msg.rangeNum = this->rangeNum;
+    msg.timeOfReception = this->timeOfReception;
+    msg.distance = this->distance;
+    msg.degrees = this->degrees;
+    msg.Xcoord = this->Xcoord;
+    msg.Ycoord = this->Ycoord;
+    msg.clockOffset = this->clockOffset;
+    msg.serviceData = this->serviceData;
+    msg.Xaccel = this->Xaccel;
+    msg.Yaccel = this->Yaccel;
+    msg.Zaccel = this->Zaccel;
+    return msg;
 }
 
+void dw_data::updateHistory() {
+    int i;
+    for (i = FILTER_SIZE-1; i > 0; i--)
+    {
+        xHistory[i] = xHistory[i-1];
+        yHistory[i] = yHistory[i-1];
+    }
+    xHistory[0] = Xcoord;
+    yHistory[0] = Ycoord;
+}
 
 int main(int argc, char **argv)
 {
@@ -40,7 +80,7 @@ int main(int argc, char **argv)
         //Set up monitor for serial port
         serial::Serial monitor("/dev/ttyACM0", 115200);
         std_msgs::String msg;
-        dw_listener::nodeData msg1;
+        dw_data message;
         //if(monitor.isOpen()) {
         //} else {
         //    monitor.open();
@@ -61,24 +101,28 @@ int main(int argc, char **argv)
             
             //Assign specific values to the nice message struct
             try {
-                msg1.tagAddress = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
-                msg1.rangeNum = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
-                msg1.timeOfReception = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
-                msg1.distance = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
-                msg1.degrees = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
-                msg1.Xcoord = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
-                msg1.Ycoord = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
-                msg1.clockOffset = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
-                msg1.serviceData = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
-                msg1.Xaccel = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
-                msg1.Yaccel = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
-                msg1.Zaccel = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
+                message.tagAddress = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
+                message.rangeNum = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
+                message.timeOfReception = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
+                message.distance = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
+                message.degrees = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
+                message.Xcoord = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
+                message.Ycoord = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
+                message.clockOffset = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
+                message.serviceData = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
+                message.Xaccel = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
+                message.Yaccel = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
+                message.Zaccel = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
 
+                
             } catch(std::exception& err) {
-                ROS_INFO("Error while building nodeData:  %s", err.what());
+                ROS_INFO("Error while building dw_data:  %s", err.what());
             }
 
-            dw_pub.publish(msg1);
+            dw_pub.publish(message.buildRosMsg());
+            message.updateHistory();
+
+
             ros::spinOnce();
             loop_rate.sleep();
         }
@@ -99,8 +143,10 @@ int main(int argc, char **argv)
 /**
 void motionFilter(double* x, double* y, int i)
 {
+     //Need to generate a list of past X and Y positions
      tag_reports_t rp = _tagList.at(i);
-
+    
+    //once we have gotten a 'filter size' number of locations
      if (rp.filterHisIdx >= FILTER_SIZE)
      {
          rp.filterHisIdx = static_cast<int>(fmod(rp.filterHisIdx,FILTER_SIZE));
@@ -133,7 +179,7 @@ void motionFilter(double* x, double* y, int i)
 
      }
 
-     //update the list entry
+     //update current pos
      _tagList.replace(i, rp);
  }
 
@@ -165,4 +211,3 @@ void r95Sort (double s[], int l, int r)
 
 }
 
-**/

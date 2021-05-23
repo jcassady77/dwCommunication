@@ -4,6 +4,7 @@
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o
  /home/rog/Documents/USASOC/devel/include/dw_listener/nodeData.h
  /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp
+ /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.h
  /home/rog/Documents/USASOC/src/serial/include/serial/serial.h
  /home/rog/Documents/USASOC/src/serial/include/serial/v8stdint.h
  /opt/ros/melodic/include/ros/advertise_options.h
@@ -62,6 +63,7 @@ dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o
  /opt/ros/melodic/include/ros/wall_timer.h
  /opt/ros/melodic/include/ros/wall_timer_options.h
  /opt/ros/melodic/include/rosconsole/macros_generated.h
+ /opt/ros/melodic/include/std_msgs/Int64.h
  /opt/ros/melodic/include/std_msgs/String.h
  /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
