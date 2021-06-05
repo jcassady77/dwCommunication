@@ -1,4 +1,4 @@
-//#include "dw_node.h"
+#include "dw_node.h"
 
 #include "serial/serial.h"
 #include <stdio.h>
@@ -11,49 +11,26 @@
 #include <cstdio>
 #include <unistd.h>
 #include <dw_listener/nodeData.h>
+#include <cmath>
 
-#define FILTER_SIZE = 10
 
 
-class dw_data {
-    public:
-        //Raw Data from Serial
-        std_msgs::String tagAddress;
-        std_msgs::Int64 rangeNum;
-        std_msgs::Int64 timeOfReception;
-        std_msgs::Int64 distance;
-        std_msgs::Int64 degrees;
-        std_msgs::Int64 Xcoord;
-        std_msgs::Int64 Ycoord;
-        std_msgs::Int64 clockOffset;
-        std_msgs::Int64 serviceData;
-        std_msgs::Int64 Xaccel;
-        std_msgs::Int64 Yaccel;
-        std_msgs::Int64 Zaccel;
 
-        //Interpreted Data
-        std_msgs::Int64 xHistory[FILTER_SIZE]
-        std_msgs::Int64 YHistory[FILTER_SIZE]
-
-        //Methods
-        dw_listener::nodeData buildRosMsg();
-        void dw_data::update();
-};
 
 dw_listener::nodeData dw_data::buildRosMsg() {
     dw_listener::nodeData msg;
-    msg.tagAddress = this->tagAddress;
-    msg.rangeNum = this->rangeNum;
-    msg.timeOfReception = this->timeOfReception;
-    msg.distance = this->distance;
-    msg.degrees = this->degrees;
-    msg.Xcoord = this->Xcoord;
-    msg.Ycoord = this->Ycoord;
-    msg.clockOffset = this->clockOffset;
-    msg.serviceData = this->serviceData;
-    msg.Xaccel = this->Xaccel;
-    msg.Yaccel = this->Yaccel;
-    msg.Zaccel = this->Zaccel;
+    msg.tagAddress = tagAddress.data;
+    msg.rangeNum = rangeNum.data;
+    msg.timeOfReception = timeOfReception.data;
+    msg.distance = distance.data;
+    msg.degrees = degrees.data;
+    msg.Xcoord = Xcoord.data;
+    msg.Ycoord = Ycoord.data;
+    msg.clockOffset = clockOffset.data;
+    msg.serviceData = serviceData.data;
+    msg.Xaccel = Xaccel.data;
+    msg.Yaccel = Yaccel.data;
+    msg.Zaccel = Zaccel.data;
     return msg;
 }
 
@@ -61,11 +38,47 @@ void dw_data::updateHistory() {
     int i;
     for (i = FILTER_SIZE-1; i > 0; i--)
     {
-        xHistory[i] = xHistory[i-1];
-        yHistory[i] = yHistory[i-1];
+        this->xHistory[i] = this->xHistory[i-1];
+        this->yHistory[i] = this->yHistory[i-1];
     }
-    xHistory[0] = Xcoord;
-    yHistory[0] = Ycoord;
+    this->xHistory[0] = this->Xcoord;
+    this->yHistory[0] = this->Ycoord;
+}
+
+void dw_data::gateFilter() {
+    int i;
+    //Find Means
+    int meanX = 0;
+    int meanY = 0;
+    for (i = FILTER_SIZE-1; i > 0; i--)
+    {
+        meanX += xHistory[i].data;
+        meanY += yHistory[i].data;
+    }
+    meanX /= FILTER_SIZE;
+    meanY /= FILTER_SIZE;
+
+    //find stdev
+    int stdevX = 0;
+    int stdevY = 0;
+    for (i = FILTER_SIZE-1; i > 0; i--)
+    {
+        stdevX += abs(meanX - xHistory[i].data);
+        stdevY += abs(meanY - yHistory[i].data);
+    }
+    stdevX /= FILTER_SIZE;
+    stdevY /= FILTER_SIZE;
+
+    //Implement Gate
+    if (abs(Xcoord.data - xHistory[0].data) > (stdevX * 5))
+    {
+        this->Xcoord = this->xHistory[0];
+    }
+    if (abs(Ycoord.data - yHistory[0].data) > (stdevY * 5))
+    {
+        this->Ycoord = this->yHistory[0];
+    }
+    
 }
 
 int main(int argc, char **argv)
@@ -101,27 +114,29 @@ int main(int argc, char **argv)
             
             //Assign specific values to the nice message struct
             try {
-                message.tagAddress = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
-                message.rangeNum = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
-                message.timeOfReception = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
-                message.distance = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
-                message.degrees = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
-                message.Xcoord = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
-                message.Ycoord = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
-                message.clockOffset = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
-                message.serviceData = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
-                message.Xaccel = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
-                message.Yaccel = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
-                message.Zaccel = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
+                message.tagAddress.data = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
+                message.rangeNum.data = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
+                message.timeOfReception.data = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
+                message.distance.data = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
+                message.degrees.data = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
+                message.Xcoord.data = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
+                message.Ycoord.data = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
+                message.clockOffset.data = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
+                message.serviceData.data = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
+                message.Xaccel.data = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
+                message.Yaccel.data = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
+                message.Zaccel.data = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
 
                 
             } catch(std::exception& err) {
                 ROS_INFO("Error while building dw_data:  %s", err.what());
             }
+            //Filter with gateing 
+            message.gateFilter();
 
             dw_pub.publish(message.buildRosMsg());
             message.updateHistory();
-
+            
 
             ros::spinOnce();
             loop_rate.sleep();
@@ -182,7 +197,7 @@ void motionFilter(double* x, double* y, int i)
      //update current pos
      _tagList.replace(i, rp);
  }
-
+* */
 /**
 * @brief r95Sort()
 *        R95 sort used by the motion filter function above
@@ -210,4 +225,5 @@ void r95Sort (double s[], int l, int r)
     }
 
 }
+* */
 
