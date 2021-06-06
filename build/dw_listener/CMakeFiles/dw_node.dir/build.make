@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Include any dependencies generated for this target.
 include dw_listener/CMakeFiles/dw_node.dir/depend.make
@@ -58,17 +58,17 @@ include dw_listener/CMakeFiles/dw_node.dir/progress.make
 include dw_listener/CMakeFiles/dw_node.dir/flags.make
 
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: dw_listener/CMakeFiles/dw_node.dir/flags.make
-dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rog/Documents/USASOC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o"
-	cd /home/rog/Documents/USASOC/build/dw_listener && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dw_node.dir/src/dw_node.cpp.o -c /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp
+dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o: /home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rog/Documents/dwCommunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o"
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dw_node.dir/src/dw_node.cpp.o -c /home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.cpp
 
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dw_node.dir/src/dw_node.cpp.i"
-	cd /home/rog/Documents/USASOC/build/dw_listener && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp > CMakeFiles/dw_node.dir/src/dw_node.cpp.i
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.cpp > CMakeFiles/dw_node.dir/src/dw_node.cpp.i
 
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dw_node.dir/src/dw_node.cpp.s"
-	cd /home/rog/Documents/USASOC/build/dw_listener && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp -o CMakeFiles/dw_node.dir/src/dw_node.cpp.s
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.cpp -o CMakeFiles/dw_node.dir/src/dw_node.cpp.s
 
 dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o.requires:
 
@@ -88,34 +88,34 @@ dw_node_OBJECTS = \
 # External object files for target dw_node
 dw_node_EXTERNAL_OBJECTS =
 
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: dw_listener/CMakeFiles/dw_node.dir/build.make
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libroscpp.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librosconsole.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librosconsole_log4cxx.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librosconsole_backend_interface.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libxmlrpcpp.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libroscpp_serialization.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librostime.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libcpp_common.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_system.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /home/rog/Documents/USASOC/devel/lib/libserial.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/librt.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node: dw_listener/CMakeFiles/dw_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rog/Documents/USASOC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node"
-	cd /home/rog/Documents/USASOC/build/dw_listener && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dw_node.dir/link.txt --verbose=$(VERBOSE)
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: dw_listener/CMakeFiles/dw_node.dir/src/dw_node.cpp.o
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: dw_listener/CMakeFiles/dw_node.dir/build.make
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libroscpp.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librosconsole.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librosconsole_log4cxx.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librosconsole_backend_interface.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libxmlrpcpp.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libroscpp_serialization.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/librostime.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /opt/ros/melodic/lib/libcpp_common.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_system.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /home/rog/Documents/dwCommunication/devel/lib/libserial.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/librt.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node: dw_listener/CMakeFiles/dw_node.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rog/Documents/dwCommunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node"
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dw_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-dw_listener/CMakeFiles/dw_node.dir/build: /home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node
+dw_listener/CMakeFiles/dw_node.dir/build: /home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node
 
 .PHONY : dw_listener/CMakeFiles/dw_node.dir/build
 
@@ -124,10 +124,10 @@ dw_listener/CMakeFiles/dw_node.dir/requires: dw_listener/CMakeFiles/dw_node.dir/
 .PHONY : dw_listener/CMakeFiles/dw_node.dir/requires
 
 dw_listener/CMakeFiles/dw_node.dir/clean:
-	cd /home/rog/Documents/USASOC/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/dw_node.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/dw_node.dir/cmake_clean.cmake
 .PHONY : dw_listener/CMakeFiles/dw_node.dir/clean
 
 dw_listener/CMakeFiles/dw_node.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/dw_listener /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/dw_listener /home/rog/Documents/USASOC/build/dw_listener/CMakeFiles/dw_node.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/dw_listener /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/dw_listener /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/dw_node.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : dw_listener/CMakeFiles/dw_node.dir/depend
 

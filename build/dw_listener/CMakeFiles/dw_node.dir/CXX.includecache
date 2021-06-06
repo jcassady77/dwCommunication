@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/rog/Documents/USASOC/devel/include/dw_listener/nodeData.h
+/home/rog/Documents/dwCommunication/devel/include/dw_listener/nodeData.h
 string
 -
 vector
@@ -22,19 +22,21 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/rog/Documents/USASOC/src/dw_listener/src/dw_node.cpp
+/home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.cpp
 dw_node.h
-/home/rog/Documents/USASOC/src/dw_listener/src/dw_node.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.h
+kalman_filter.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/kalman_filter.h
 serial/serial.h
-/home/rog/Documents/USASOC/src/dw_listener/src/serial/serial.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/serial/serial.h
 stdio.h
 -
 ros/ros.h
-/home/rog/Documents/USASOC/src/dw_listener/src/ros/ros.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/ros/ros.h
 std_msgs/String.h
-/home/rog/Documents/USASOC/src/dw_listener/src/std_msgs/String.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/std_msgs/String.h
 std_msgs/Int64.h
-/home/rog/Documents/USASOC/src/dw_listener/src/std_msgs/Int64.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/std_msgs/Int64.h
 sstream
 -
 string
@@ -47,10 +49,28 @@ unistd.h
 -
 dw_listener/nodeData.h
 -
+cmath
+-
+kalman_filter.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/kalman_filter.h
 
-/home/rog/Documents/USASOC/src/dw_listener/src/dw_node.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/dw_node.h
+std_msgs/String.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/std_msgs/String.h
+std_msgs/Int64.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/std_msgs/Int64.h
+ros/ros.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/ros/ros.h
+dw_listener/nodeData.h
+-
 
-/home/rog/Documents/USASOC/src/serial/include/serial/serial.h
+/home/rog/Documents/dwCommunication/src/dw_listener/src/kalman_filter.h
+armadillo
+-
+stdexcept
+-
+
+/home/rog/Documents/dwCommunication/src/serial/include/serial/serial.h
 limits
 -
 vector
@@ -68,7 +88,7 @@ stdexcept
 serial/v8stdint.h
 -
 
-/home/rog/Documents/USASOC/src/serial/include/serial/v8stdint.h
+/home/rog/Documents/dwCommunication/src/serial/include/serial/v8stdint.h
 stddef.h
 -
 stdio.h

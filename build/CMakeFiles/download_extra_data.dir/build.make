@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for download_extra_data.
 
@@ -67,6 +67,6 @@ CMakeFiles/download_extra_data.dir/clean:
 .PHONY : CMakeFiles/download_extra_data.dir/clean
 
 CMakeFiles/download_extra_data.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/CMakeFiles/download_extra_data.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/CMakeFiles/download_extra_data.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/download_extra_data.dir/depend
 

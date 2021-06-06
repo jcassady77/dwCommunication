@@ -67,14 +67,14 @@ set(dw_listener_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(dw_listener_SOURCE_PREFIX /home/rog/Documents/USASOC/src/dw_listener)
-  set(dw_listener_DEVEL_PREFIX /home/rog/Documents/USASOC/devel)
+  set(dw_listener_SOURCE_PREFIX /home/rog/Documents/dwCommunication/src/dw_listener)
+  set(dw_listener_DEVEL_PREFIX /home/rog/Documents/dwCommunication/devel)
   set(dw_listener_INSTALL_PREFIX "")
   set(dw_listener_PREFIX ${dw_listener_DEVEL_PREFIX})
 else()
   set(dw_listener_SOURCE_PREFIX "")
   set(dw_listener_DEVEL_PREFIX "")
-  set(dw_listener_INSTALL_PREFIX /home/rog/Documents/USASOC/install)
+  set(dw_listener_INSTALL_PREFIX /home/rog/Documents/dwCommunication/install)
   set(dw_listener_PREFIX ${dw_listener_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/rog/Documents/USASOC/install/lib;/home/rog/Documents/USASOC/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/rog/Documents/dwCommunication/install/lib;/home/rog/Documents/dwCommunication/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

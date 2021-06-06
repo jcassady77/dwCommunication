@@ -1,2 +1,2 @@
 dw_listener:serial
--DCATKIN_DEVEL_PREFIX=/home/rog/Documents/USASOC/devel -DCMAKE_INSTALL_PREFIX=/home/rog/Documents/USASOC/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/rog/Documents/dwCommunication/devel -DCMAKE_INSTALL_PREFIX=/home/rog/Documents/dwCommunication/install -G Unix Makefiles

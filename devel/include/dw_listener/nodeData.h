@@ -31,6 +31,8 @@ struct nodeData_
     , degrees(0)
     , Xcoord(0)
     , Ycoord(0)
+    , XcoordFiltered(0)
+    , YcoordFiltered(0)
     , clockOffset(0)
     , serviceData(0)
     , Xaccel(0)
@@ -45,6 +47,8 @@ struct nodeData_
     , degrees(0)
     , Xcoord(0)
     , Ycoord(0)
+    , XcoordFiltered(0)
+    , YcoordFiltered(0)
     , clockOffset(0)
     , serviceData(0)
     , Xaccel(0)
@@ -75,6 +79,12 @@ struct nodeData_
 
    typedef int64_t _Ycoord_type;
   _Ycoord_type Ycoord;
+
+   typedef int64_t _XcoordFiltered_type;
+  _XcoordFiltered_type XcoordFiltered;
+
+   typedef int64_t _YcoordFiltered_type;
+  _YcoordFiltered_type YcoordFiltered;
 
    typedef int64_t _clockOffset_type;
   _clockOffset_type clockOffset;
@@ -127,6 +137,8 @@ bool operator==(const ::dw_listener::nodeData_<ContainerAllocator1> & lhs, const
     lhs.degrees == rhs.degrees &&
     lhs.Xcoord == rhs.Xcoord &&
     lhs.Ycoord == rhs.Ycoord &&
+    lhs.XcoordFiltered == rhs.XcoordFiltered &&
+    lhs.YcoordFiltered == rhs.YcoordFiltered &&
     lhs.clockOffset == rhs.clockOffset &&
     lhs.serviceData == rhs.serviceData &&
     lhs.Xaccel == rhs.Xaccel &&
@@ -188,12 +200,12 @@ struct MD5Sum< ::dw_listener::nodeData_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "3a45b84e69effa6a1887ddf80ea9ae1c";
+    return "33334d719b640f53532bf5bf4909ab5c";
   }
 
   static const char* value(const ::dw_listener::nodeData_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x3a45b84e69effa6aULL;
-  static const uint64_t static_value2 = 0x1887ddf80ea9ae1cULL;
+  static const uint64_t static_value1 = 0x33334d719b640f53ULL;
+  static const uint64_t static_value2 = 0x532bf5bf4909ab5cULL;
 };
 
 template<class ContainerAllocator>
@@ -220,6 +232,8 @@ struct Definition< ::dw_listener::nodeData_<ContainerAllocator> >
 "int64 degrees\n"
 "int64 Xcoord\n"
 "int64 Ycoord\n"
+"int64 XcoordFiltered\n"
+"int64 YcoordFiltered\n"
 "int64 clockOffset\n"
 "int64 serviceData\n"
 "int64 Xaccel\n"
@@ -250,6 +264,8 @@ namespace serialization
       stream.next(m.degrees);
       stream.next(m.Xcoord);
       stream.next(m.Ycoord);
+      stream.next(m.XcoordFiltered);
+      stream.next(m.YcoordFiltered);
       stream.next(m.clockOffset);
       stream.next(m.serviceData);
       stream.next(m.Xaccel);
@@ -287,6 +303,10 @@ struct Printer< ::dw_listener::nodeData_<ContainerAllocator> >
     Printer<int64_t>::stream(s, indent + "  ", v.Xcoord);
     s << indent << "Ycoord: ";
     Printer<int64_t>::stream(s, indent + "  ", v.Ycoord);
+    s << indent << "XcoordFiltered: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.XcoordFiltered);
+    s << indent << "YcoordFiltered: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.YcoordFiltered);
     s << indent << "clockOffset: ";
     Printer<int64_t>::stream(s, indent + "  ", v.clockOffset);
     s << indent << "serviceData: ";

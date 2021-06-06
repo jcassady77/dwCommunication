@@ -1,4 +1,4 @@
-prefix=/home/rog/Documents/USASOC/install
+prefix=/home/rog/Documents/dwCommunication/install
 
 Name: dw_listener
 Description: Description of dw_listener

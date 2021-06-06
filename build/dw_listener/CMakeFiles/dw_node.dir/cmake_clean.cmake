@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/dw_node.dir/src/dw_node.cpp.o"
-  "/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node.pdb"
-  "/home/rog/Documents/USASOC/devel/lib/dw_listener/dw_node"
+  "/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node.pdb"
+  "/home/rog/Documents/dwCommunication/devel/lib/dw_listener/dw_node"
 )
 
 # Per-language clean rules from dependency scanning.

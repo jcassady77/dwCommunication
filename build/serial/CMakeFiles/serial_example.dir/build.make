@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Include any dependencies generated for this target.
 include serial/CMakeFiles/serial_example.dir/depend.make
@@ -58,17 +58,17 @@ include serial/CMakeFiles/serial_example.dir/progress.make
 include serial/CMakeFiles/serial_example.dir/flags.make
 
 serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o: serial/CMakeFiles/serial_example.dir/flags.make
-serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o: /home/rog/Documents/USASOC/src/serial/examples/serial_example.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rog/Documents/USASOC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o"
-	cd /home/rog/Documents/USASOC/build/serial && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial_example.dir/examples/serial_example.cc.o -c /home/rog/Documents/USASOC/src/serial/examples/serial_example.cc
+serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o: /home/rog/Documents/dwCommunication/src/serial/examples/serial_example.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rog/Documents/dwCommunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o"
+	cd /home/rog/Documents/dwCommunication/build/serial && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial_example.dir/examples/serial_example.cc.o -c /home/rog/Documents/dwCommunication/src/serial/examples/serial_example.cc
 
 serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serial_example.dir/examples/serial_example.cc.i"
-	cd /home/rog/Documents/USASOC/build/serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rog/Documents/USASOC/src/serial/examples/serial_example.cc > CMakeFiles/serial_example.dir/examples/serial_example.cc.i
+	cd /home/rog/Documents/dwCommunication/build/serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rog/Documents/dwCommunication/src/serial/examples/serial_example.cc > CMakeFiles/serial_example.dir/examples/serial_example.cc.i
 
 serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serial_example.dir/examples/serial_example.cc.s"
-	cd /home/rog/Documents/USASOC/build/serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rog/Documents/USASOC/src/serial/examples/serial_example.cc -o CMakeFiles/serial_example.dir/examples/serial_example.cc.s
+	cd /home/rog/Documents/dwCommunication/build/serial && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rog/Documents/dwCommunication/src/serial/examples/serial_example.cc -o CMakeFiles/serial_example.dir/examples/serial_example.cc.s
 
 serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o.requires:
 
@@ -88,15 +88,15 @@ serial_example_OBJECTS = \
 # External object files for target serial_example
 serial_example_EXTERNAL_OBJECTS =
 
-/home/rog/Documents/USASOC/devel/lib/serial/serial_example: serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o
-/home/rog/Documents/USASOC/devel/lib/serial/serial_example: serial/CMakeFiles/serial_example.dir/build.make
-/home/rog/Documents/USASOC/devel/lib/serial/serial_example: /home/rog/Documents/USASOC/devel/lib/libserial.so
-/home/rog/Documents/USASOC/devel/lib/serial/serial_example: serial/CMakeFiles/serial_example.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rog/Documents/USASOC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rog/Documents/USASOC/devel/lib/serial/serial_example"
-	cd /home/rog/Documents/USASOC/build/serial && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/serial_example.dir/link.txt --verbose=$(VERBOSE)
+/home/rog/Documents/dwCommunication/devel/lib/serial/serial_example: serial/CMakeFiles/serial_example.dir/examples/serial_example.cc.o
+/home/rog/Documents/dwCommunication/devel/lib/serial/serial_example: serial/CMakeFiles/serial_example.dir/build.make
+/home/rog/Documents/dwCommunication/devel/lib/serial/serial_example: /home/rog/Documents/dwCommunication/devel/lib/libserial.so
+/home/rog/Documents/dwCommunication/devel/lib/serial/serial_example: serial/CMakeFiles/serial_example.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rog/Documents/dwCommunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rog/Documents/dwCommunication/devel/lib/serial/serial_example"
+	cd /home/rog/Documents/dwCommunication/build/serial && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/serial_example.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-serial/CMakeFiles/serial_example.dir/build: /home/rog/Documents/USASOC/devel/lib/serial/serial_example
+serial/CMakeFiles/serial_example.dir/build: /home/rog/Documents/dwCommunication/devel/lib/serial/serial_example
 
 .PHONY : serial/CMakeFiles/serial_example.dir/build
 
@@ -105,10 +105,10 @@ serial/CMakeFiles/serial_example.dir/requires: serial/CMakeFiles/serial_example.
 .PHONY : serial/CMakeFiles/serial_example.dir/requires
 
 serial/CMakeFiles/serial_example.dir/clean:
-	cd /home/rog/Documents/USASOC/build/serial && $(CMAKE_COMMAND) -P CMakeFiles/serial_example.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/serial && $(CMAKE_COMMAND) -P CMakeFiles/serial_example.dir/cmake_clean.cmake
 .PHONY : serial/CMakeFiles/serial_example.dir/clean
 
 serial/CMakeFiles/serial_example.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/serial /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/serial /home/rog/Documents/USASOC/build/serial/CMakeFiles/serial_example.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/serial /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/serial /home/rog/Documents/dwCommunication/build/serial/CMakeFiles/serial_example.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : serial/CMakeFiles/serial_example.dir/depend
 

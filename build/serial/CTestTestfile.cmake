@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/rog/Documents/USASOC/src/serial
-# Build directory: /home/rog/Documents/USASOC/build/serial
+# Source directory: /home/rog/Documents/dwCommunication/src/serial
+# Build directory: /home/rog/Documents/dwCommunication/build/serial
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ serial/CMakeFiles/_catkin_empty_exported_target.dir/build: _catkin_empty_exporte
 .PHONY : serial/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 serial/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/rog/Documents/USASOC/build/serial && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/serial && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : serial/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 serial/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/serial /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/serial /home/rog/Documents/USASOC/build/serial/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/serial /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/serial /home/rog/Documents/dwCommunication/build/serial/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : serial/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

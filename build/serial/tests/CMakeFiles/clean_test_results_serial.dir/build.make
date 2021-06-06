@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for clean_test_results_serial.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
 include serial/tests/CMakeFiles/clean_test_results_serial.dir/progress.make
 
 serial/tests/CMakeFiles/clean_test_results_serial:
-	cd /home/rog/Documents/USASOC/build/serial/tests && /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/rog/Documents/USASOC/build/test_results/serial
+	cd /home/rog/Documents/dwCommunication/build/serial/tests && /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/rog/Documents/dwCommunication/build/test_results/serial
 
 clean_test_results_serial: serial/tests/CMakeFiles/clean_test_results_serial
 clean_test_results_serial: serial/tests/CMakeFiles/clean_test_results_serial.dir/build.make
@@ -67,10 +67,10 @@ serial/tests/CMakeFiles/clean_test_results_serial.dir/build: clean_test_results_
 .PHONY : serial/tests/CMakeFiles/clean_test_results_serial.dir/build
 
 serial/tests/CMakeFiles/clean_test_results_serial.dir/clean:
-	cd /home/rog/Documents/USASOC/build/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/clean_test_results_serial.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/clean_test_results_serial.dir/cmake_clean.cmake
 .PHONY : serial/tests/CMakeFiles/clean_test_results_serial.dir/clean
 
 serial/tests/CMakeFiles/clean_test_results_serial.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/serial/tests /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/serial/tests /home/rog/Documents/USASOC/build/serial/tests/CMakeFiles/clean_test_results_serial.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/serial/tests /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/serial/tests /home/rog/Documents/dwCommunication/build/serial/tests/CMakeFiles/clean_test_results_serial.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : serial/tests/CMakeFiles/clean_test_results_serial.dir/depend
 

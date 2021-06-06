@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/dw_listener_generate_messages_nodejs"
-  "/home/rog/Documents/USASOC/devel/share/gennodejs/ros/dw_listener/msg/nodeData.js"
+  "/home/rog/Documents/dwCommunication/devel/share/gennodejs/ros/dw_listener/msg/nodeData.js"
 )
 
 # Per-language clean rules from dependency scanning.

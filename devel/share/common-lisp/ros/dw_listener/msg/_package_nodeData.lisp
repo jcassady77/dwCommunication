@@ -13,6 +13,10 @@
           XCOORD
           YCOORD-VAL
           YCOORD
+          XCOORDFILTERED-VAL
+          XCOORDFILTERED
+          YCOORDFILTERED-VAL
+          YCOORDFILTERED
           CLOCKOFFSET-VAL
           CLOCKOFFSET
           SERVICEDATA-VAL

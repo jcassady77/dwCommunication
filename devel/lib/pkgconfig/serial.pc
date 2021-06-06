@@ -1,8 +1,8 @@
-prefix=/home/rog/Documents/USASOC/devel
+prefix=/home/rog/Documents/dwCommunication/devel
 
 Name: serial
 Description: Description of serial
 Version: 1.2.1
-Cflags: -I/home/rog/Documents/USASOC/src/serial/include
+Cflags: -I/home/rog/Documents/dwCommunication/src/serial/include
 Libs: -L${prefix}/lib -lserial -lrt -lpthread
 Requires: 

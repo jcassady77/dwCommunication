@@ -2,7 +2,7 @@
 
 message(STATUS "dw_listener: 1 messages, 0 services")
 
-set(MSG_I_FLAGS "-Idw_listener:/home/rog/Documents/USASOC/src/dw_listener/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Idw_listener:/home/rog/Documents/dwCommunication/src/dw_listener/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,9 +17,9 @@ add_custom_target(dw_listener_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" NAME_WE)
+get_filename_component(_filename "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" NAME_WE)
 add_custom_target(_dw_listener_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dw_listener" "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dw_listener" "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" ""
 )
 
 #
@@ -29,7 +29,7 @@ add_custom_target(_dw_listener_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(dw_listener
-  "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg"
+  "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/dw_listener
@@ -49,7 +49,7 @@ add_custom_target(dw_listener_generate_messages_cpp
 add_dependencies(dw_listener_generate_messages dw_listener_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" NAME_WE)
+get_filename_component(_filename "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" NAME_WE)
 add_dependencies(dw_listener_generate_messages_cpp _dw_listener_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -62,7 +62,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS dw_listener_generate_messages_cpp)
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(dw_listener
-  "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg"
+  "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dw_listener
@@ -82,7 +82,7 @@ add_custom_target(dw_listener_generate_messages_eus
 add_dependencies(dw_listener_generate_messages dw_listener_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" NAME_WE)
+get_filename_component(_filename "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" NAME_WE)
 add_dependencies(dw_listener_generate_messages_eus _dw_listener_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -95,7 +95,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS dw_listener_generate_messages_eus)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(dw_listener
-  "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg"
+  "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dw_listener
@@ -115,7 +115,7 @@ add_custom_target(dw_listener_generate_messages_lisp
 add_dependencies(dw_listener_generate_messages dw_listener_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" NAME_WE)
+get_filename_component(_filename "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" NAME_WE)
 add_dependencies(dw_listener_generate_messages_lisp _dw_listener_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -128,7 +128,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS dw_listener_generate_messages_lisp)
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(dw_listener
-  "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg"
+  "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dw_listener
@@ -148,7 +148,7 @@ add_custom_target(dw_listener_generate_messages_nodejs
 add_dependencies(dw_listener_generate_messages dw_listener_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" NAME_WE)
+get_filename_component(_filename "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" NAME_WE)
 add_dependencies(dw_listener_generate_messages_nodejs _dw_listener_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -161,7 +161,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS dw_listener_generate_messages_nodej
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(dw_listener
-  "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg"
+  "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dw_listener
@@ -181,7 +181,7 @@ add_custom_target(dw_listener_generate_messages_py
 add_dependencies(dw_listener_generate_messages dw_listener_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg" NAME_WE)
+get_filename_component(_filename "/home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg" NAME_WE)
 add_dependencies(dw_listener_generate_messages_py _dw_listener_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

@@ -25,6 +25,8 @@ class nodeData {
       this.degrees = null;
       this.Xcoord = null;
       this.Ycoord = null;
+      this.XcoordFiltered = null;
+      this.YcoordFiltered = null;
       this.clockOffset = null;
       this.serviceData = null;
       this.Xaccel = null;
@@ -73,6 +75,18 @@ class nodeData {
       }
       else {
         this.Ycoord = 0;
+      }
+      if (initObj.hasOwnProperty('XcoordFiltered')) {
+        this.XcoordFiltered = initObj.XcoordFiltered
+      }
+      else {
+        this.XcoordFiltered = 0;
+      }
+      if (initObj.hasOwnProperty('YcoordFiltered')) {
+        this.YcoordFiltered = initObj.YcoordFiltered
+      }
+      else {
+        this.YcoordFiltered = 0;
       }
       if (initObj.hasOwnProperty('clockOffset')) {
         this.clockOffset = initObj.clockOffset
@@ -123,6 +137,10 @@ class nodeData {
     bufferOffset = _serializer.int64(obj.Xcoord, buffer, bufferOffset);
     // Serialize message field [Ycoord]
     bufferOffset = _serializer.int64(obj.Ycoord, buffer, bufferOffset);
+    // Serialize message field [XcoordFiltered]
+    bufferOffset = _serializer.int64(obj.XcoordFiltered, buffer, bufferOffset);
+    // Serialize message field [YcoordFiltered]
+    bufferOffset = _serializer.int64(obj.YcoordFiltered, buffer, bufferOffset);
     // Serialize message field [clockOffset]
     bufferOffset = _serializer.int64(obj.clockOffset, buffer, bufferOffset);
     // Serialize message field [serviceData]
@@ -154,6 +172,10 @@ class nodeData {
     data.Xcoord = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [Ycoord]
     data.Ycoord = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [XcoordFiltered]
+    data.XcoordFiltered = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [YcoordFiltered]
+    data.YcoordFiltered = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [clockOffset]
     data.clockOffset = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [serviceData]
@@ -170,7 +192,7 @@ class nodeData {
   static getMessageSize(object) {
     let length = 0;
     length += object.tagAddress.length;
-    return length + 92;
+    return length + 108;
   }
 
   static datatype() {
@@ -180,7 +202,7 @@ class nodeData {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '3a45b84e69effa6a1887ddf80ea9ae1c';
+    return '33334d719b640f53532bf5bf4909ab5c';
   }
 
   static messageDefinition() {
@@ -194,6 +216,8 @@ class nodeData {
     int64 degrees
     int64 Xcoord
     int64 Ycoord
+    int64 XcoordFiltered
+    int64 YcoordFiltered
     int64 clockOffset
     int64 serviceData
     int64 Xaccel
@@ -256,6 +280,20 @@ class nodeData {
     }
     else {
       resolved.Ycoord = 0
+    }
+
+    if (msg.XcoordFiltered !== undefined) {
+      resolved.XcoordFiltered = msg.XcoordFiltered;
+    }
+    else {
+      resolved.XcoordFiltered = 0
+    }
+
+    if (msg.YcoordFiltered !== undefined) {
+      resolved.YcoordFiltered = msg.YcoordFiltered;
+    }
+    else {
+      resolved.YcoordFiltered = 0
     }
 
     if (msg.clockOffset !== undefined) {

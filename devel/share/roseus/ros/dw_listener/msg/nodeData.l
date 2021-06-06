@@ -14,7 +14,7 @@
 
 (defclass dw_listener::nodeData
   :super ros::object
-  :slots (_tagAddress _rangeNum _timeOfReception _distance _degrees _Xcoord _Ycoord _clockOffset _serviceData _Xaccel _Yaccel _Zaccel ))
+  :slots (_tagAddress _rangeNum _timeOfReception _distance _degrees _Xcoord _Ycoord _XcoordFiltered _YcoordFiltered _clockOffset _serviceData _Xaccel _Yaccel _Zaccel ))
 
 (defmethod dw_listener::nodeData
   (:init
@@ -26,6 +26,8 @@
     ((:degrees __degrees) 0)
     ((:Xcoord __Xcoord) 0)
     ((:Ycoord __Ycoord) 0)
+    ((:XcoordFiltered __XcoordFiltered) 0)
+    ((:YcoordFiltered __YcoordFiltered) 0)
     ((:clockOffset __clockOffset) 0)
     ((:serviceData __serviceData) 0)
     ((:Xaccel __Xaccel) 0)
@@ -40,6 +42,8 @@
    (setq _degrees (round __degrees))
    (setq _Xcoord (round __Xcoord))
    (setq _Ycoord (round __Ycoord))
+   (setq _XcoordFiltered (round __XcoordFiltered))
+   (setq _YcoordFiltered (round __YcoordFiltered))
    (setq _clockOffset (round __clockOffset))
    (setq _serviceData (round __serviceData))
    (setq _Xaccel (round __Xaccel))
@@ -67,6 +71,12 @@
   (:Ycoord
    (&optional __Ycoord)
    (if __Ycoord (setq _Ycoord __Ycoord)) _Ycoord)
+  (:XcoordFiltered
+   (&optional __XcoordFiltered)
+   (if __XcoordFiltered (setq _XcoordFiltered __XcoordFiltered)) _XcoordFiltered)
+  (:YcoordFiltered
+   (&optional __YcoordFiltered)
+   (if __YcoordFiltered (setq _YcoordFiltered __YcoordFiltered)) _YcoordFiltered)
   (:clockOffset
    (&optional __clockOffset)
    (if __clockOffset (setq _clockOffset __clockOffset)) _clockOffset)
@@ -98,6 +108,10 @@
     ;; int64 _Xcoord
     8
     ;; int64 _Ycoord
+    8
+    ;; int64 _XcoordFiltered
+    8
+    ;; int64 _YcoordFiltered
     8
     ;; int64 _clockOffset
     8
@@ -188,6 +202,30 @@
               (write-long (if (>= _Ycoord 0) 0 #xffffffff) s))
              (t                                         ;; integer
               (write-long _Ycoord s)(write-long (if (>= _Ycoord 0) 0 #xffffffff) s)))
+     ;; int64 _XcoordFiltered
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _XcoordFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _XcoordFiltered) (= (length (_XcoordFiltered . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_XcoordFiltered . bv) 0) 0) s)
+              (write-long (ash (elt (_XcoordFiltered . bv) 1) -1) s))
+             ((and (class _XcoordFiltered) (= (length (_XcoordFiltered . bv)) 1)) ;; big1
+              (write-long (elt (_XcoordFiltered . bv) 0) s)
+              (write-long (if (>= _XcoordFiltered 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _XcoordFiltered s)(write-long (if (>= _XcoordFiltered 0) 0 #xffffffff) s)))
+     ;; int64 _YcoordFiltered
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _YcoordFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _YcoordFiltered) (= (length (_YcoordFiltered . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_YcoordFiltered . bv) 0) 0) s)
+              (write-long (ash (elt (_YcoordFiltered . bv) 1) -1) s))
+             ((and (class _YcoordFiltered) (= (length (_YcoordFiltered . bv)) 1)) ;; big1
+              (write-long (elt (_YcoordFiltered . bv) 0) s)
+              (write-long (if (>= _YcoordFiltered 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _YcoordFiltered s)(write-long (if (>= _YcoordFiltered 0) 0 #xffffffff) s)))
      ;; int64 _clockOffset
 #+(or :alpha :irix6 :x86_64)
        (progn (sys::poke _clockOffset (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
@@ -326,6 +364,30 @@
                       b0)
                     ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
                     (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _XcoordFiltered
+#+(or :alpha :irix6 :x86_64)
+      (setf _XcoordFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _XcoordFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _YcoordFiltered
+#+(or :alpha :irix6 :x86_64)
+      (setf _YcoordFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _YcoordFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
    ;; int64 _clockOffset
 #+(or :alpha :irix6 :x86_64)
       (setf _clockOffset (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
@@ -390,7 +452,7 @@
    self)
   )
 
-(setf (get dw_listener::nodeData :md5sum-) "3a45b84e69effa6a1887ddf80ea9ae1c")
+(setf (get dw_listener::nodeData :md5sum-) "33334d719b640f53532bf5bf4909ab5c")
 (setf (get dw_listener::nodeData :datatype-) "dw_listener/nodeData")
 (setf (get dw_listener::nodeData :definition-)
       "
@@ -401,6 +463,8 @@ int64 distance
 int64 degrees
 int64 Xcoord
 int64 Ycoord
+int64 XcoordFiltered
+int64 YcoordFiltered
 int64 clockOffset
 int64 serviceData
 int64 Xaccel
@@ -411,6 +475,6 @@ int64 Zaccel
 
 
 
-(provide :dw_listener/nodeData "3a45b84e69effa6a1887ddf80ea9ae1c")
+(provide :dw_listener/nodeData "33334d719b640f53532bf5bf4909ab5c")
 
 

@@ -1,8 +1,8 @@
-# Install script for directory: /home/rog/Documents/USASOC/src/serial/tests
+# Install script for directory: /home/rog/Documents/dwCommunication/src/serial/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/rog/Documents/USASOC/install")
+  set(CMAKE_INSTALL_PREFIX "/home/rog/Documents/dwCommunication/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

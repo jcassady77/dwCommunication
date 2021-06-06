@@ -1,5 +1,6 @@
 #include "dw_node.h"
 
+#include "kalman_filter.h"
 #include "serial/serial.h"
 #include <stdio.h>
 #include "ros/ros.h"
@@ -12,7 +13,7 @@
 #include <unistd.h>
 #include <dw_listener/nodeData.h>
 #include <cmath>
-
+#include "kalman_filter.h"
 
 
 
@@ -26,6 +27,8 @@ dw_listener::nodeData dw_data::buildRosMsg() {
     msg.degrees = degrees.data;
     msg.Xcoord = Xcoord.data;
     msg.Ycoord = Ycoord.data;
+    msg.XcoordFiltered = XcoordFiltered.data;
+    msg.YcoordFiltered = YcoordFiltered.data;
     msg.clockOffset = clockOffset.data;
     msg.serviceData = serviceData.data;
     msg.Xaccel = Xaccel.data;
@@ -69,16 +72,50 @@ void dw_data::gateFilter() {
     stdevX /= FILTER_SIZE;
     stdevY /= FILTER_SIZE;
 
+    stdevX = 10;
+    stdevY = 10;
     //Implement Gate
-    if (abs(Xcoord.data - xHistory[0].data) > (stdevX * 5))
+    if (abs(Xcoord.data - xHistory[0].data) > (stdevX * GATE_VALUE))
     {
-        this->Xcoord = this->xHistory[0];
+        XcoordFiltered.data = xHistory[0].data;
+        //this->Xcoord = this->xHistory[0];
     }
-    if (abs(Ycoord.data - yHistory[0].data) > (stdevY * 5))
+    if (abs(Ycoord.data - yHistory[0].data) > (stdevY * GATE_VALUE))
     {
-        this->Ycoord = this->yHistory[0];
+        YcoordFiltered.data = yHistory[0].data;
+        //this->Ycoord = this->yHistory[0];
     }
     
+}
+
+
+void dw_data::gateFilter2() {
+    int i;
+    //Find Means
+    int meanX = Xcoord.data;
+    int meanY = Ycoord.data;
+    int xCount = 1;
+    int yCount = 1;
+    for (i = FILTER_SIZE-1; i > 0; i--)
+    {
+        if (abs(xHistory[i].data - xHistory[i+1].data)> GATE_VALUE)
+        {
+            meanX += xHistory[i].data;
+            xCount += 1;
+        }
+        if (abs(yHistory[i].data - yHistory[i+1].data)> GATE_VALUE)
+        {
+            meanY += yHistory[i].data;
+            yCount += 1;
+        }
+        
+    }
+    
+    meanX /= xCount;// + 1;
+    meanY /= yCount;// + 1;
+    
+    XcoordFiltered.data = meanX;
+    YcoordFiltered.data = meanY;
 }
 
 int main(int argc, char **argv)
@@ -88,6 +125,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     ros::Publisher dw_pub = n.advertise<dw_listener::nodeData>("dw_data", 1000);
     ros::Rate loop_rate(10);
+
 
     try {
         //Set up monitor for serial port
@@ -132,7 +170,10 @@ int main(int argc, char **argv)
                 ROS_INFO("Error while building dw_data:  %s", err.what());
             }
             //Filter with gateing 
-            message.gateFilter();
+            message.gateFilter2();
+
+            //Kalman Filter
+
 
             dw_pub.publish(message.buildRosMsg());
             message.updateHistory();

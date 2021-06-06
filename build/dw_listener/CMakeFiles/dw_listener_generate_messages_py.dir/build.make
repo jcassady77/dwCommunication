@@ -43,33 +43,33 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for dw_listener_generate_messages_py.
 
 # Include the progress variables for this target.
 include dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/progress.make
 
-dw_listener/CMakeFiles/dw_listener_generate_messages_py: /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py
-dw_listener/CMakeFiles/dw_listener_generate_messages_py: /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py
+dw_listener/CMakeFiles/dw_listener_generate_messages_py: /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py
+dw_listener/CMakeFiles/dw_listener_generate_messages_py: /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py
 
 
-/home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py: /home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rog/Documents/USASOC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG dw_listener/nodeData"
-	cd /home/rog/Documents/USASOC/build/dw_listener && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/rog/Documents/USASOC/src/dw_listener/msg/nodeData.msg -Idw_listener:/home/rog/Documents/USASOC/src/dw_listener/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p dw_listener -o /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg
+/home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py: /home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rog/Documents/dwCommunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG dw_listener/nodeData"
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/rog/Documents/dwCommunication/src/dw_listener/msg/nodeData.msg -Idw_listener:/home/rog/Documents/dwCommunication/src/dw_listener/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p dw_listener -o /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg
 
-/home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py: /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rog/Documents/USASOC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for dw_listener"
-	cd /home/rog/Documents/USASOC/build/dw_listener && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg --initpy
+/home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py: /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rog/Documents/dwCommunication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for dw_listener"
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg --initpy
 
 dw_listener_generate_messages_py: dw_listener/CMakeFiles/dw_listener_generate_messages_py
-dw_listener_generate_messages_py: /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py
-dw_listener_generate_messages_py: /home/rog/Documents/USASOC/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py
+dw_listener_generate_messages_py: /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/_nodeData.py
+dw_listener_generate_messages_py: /home/rog/Documents/dwCommunication/devel/lib/python2.7/dist-packages/dw_listener/msg/__init__.py
 dw_listener_generate_messages_py: dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/build.make
 
 .PHONY : dw_listener_generate_messages_py
@@ -80,10 +80,10 @@ dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/build: dw_listener_g
 .PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/build
 
 dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/clean:
-	cd /home/rog/Documents/USASOC/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/dw_listener_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/dw_listener_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/clean
 
 dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/dw_listener /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/dw_listener /home/rog/Documents/USASOC/build/dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/dw_listener /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/dw_listener /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : dw_listener/CMakeFiles/dw_listener_generate_messages_py.dir/depend
 

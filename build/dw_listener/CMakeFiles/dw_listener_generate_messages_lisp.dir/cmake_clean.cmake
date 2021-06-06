@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/dw_listener_generate_messages_lisp"
-  "/home/rog/Documents/USASOC/devel/share/common-lisp/ros/dw_listener/msg/nodeData.lisp"
+  "/home/rog/Documents/dwCommunication/devel/share/common-lisp/ros/dw_listener/msg/nodeData.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

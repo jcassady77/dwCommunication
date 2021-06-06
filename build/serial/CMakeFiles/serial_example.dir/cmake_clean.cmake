@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/serial_example.dir/examples/serial_example.cc.o"
-  "/home/rog/Documents/USASOC/devel/lib/serial/serial_example.pdb"
-  "/home/rog/Documents/USASOC/devel/lib/serial/serial_example"
+  "/home/rog/Documents/dwCommunication/devel/lib/serial/serial_example.pdb"
+  "/home/rog/Documents/dwCommunication/devel/lib/serial/serial_example"
 )
 
 # Per-language clean rules from dependency scanning.

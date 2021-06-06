@@ -53,4 +53,5 @@ class dw_data {
         dw_listener::nodeData buildRosMsg();
         void updateHistory();
         void gateFilter();
+        void gateFilter2();
 };

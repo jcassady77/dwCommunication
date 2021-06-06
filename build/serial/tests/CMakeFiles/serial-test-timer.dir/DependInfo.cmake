@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/rog/Documents/USASOC/src/serial/tests/unit/unix_timer_tests.cc" "/home/rog/Documents/USASOC/build/serial/tests/CMakeFiles/serial-test-timer.dir/unit/unix_timer_tests.cc.o"
+  "/home/rog/Documents/dwCommunication/src/serial/tests/unit/unix_timer_tests.cc" "/home/rog/Documents/dwCommunication/build/serial/tests/CMakeFiles/serial-test-timer.dir/unit/unix_timer_tests.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -15,14 +15,14 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/rog/Documents/USASOC/src/serial/include"
+  "/home/rog/Documents/dwCommunication/src/serial/include"
   "/usr/src/googletest/googletest/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/rog/Documents/USASOC/build/gtest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake"
-  "/home/rog/Documents/USASOC/build/serial/CMakeFiles/serial.dir/DependInfo.cmake"
+  "/home/rog/Documents/dwCommunication/build/gtest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "/home/rog/Documents/dwCommunication/build/serial/CMakeFiles/serial.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

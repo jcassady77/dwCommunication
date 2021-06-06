@@ -1,0 +1,8 @@
+prefix=/home/rog/Documents/dwCommunication/devel
+
+Name: kalman_filters
+Description: Description of kalman_filters
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,1 +1,1 @@
-/usr/bin/c++    -rdynamic CMakeFiles/serial_example.dir/examples/serial_example.cc.o  -o /home/rog/Documents/USASOC/devel/lib/serial/serial_example -Wl,-rpath,/home/rog/Documents/USASOC/devel/lib /home/rog/Documents/USASOC/devel/lib/libserial.so -lrt -lpthread 
+/usr/bin/c++    -rdynamic CMakeFiles/serial_example.dir/examples/serial_example.cc.o  -o /home/rog/Documents/dwCommunication/devel/lib/serial/serial_example -Wl,-rpath,/home/rog/Documents/dwCommunication/devel/lib /home/rog/Documents/dwCommunication/devel/lib/libserial.so -lrt -lpthread 

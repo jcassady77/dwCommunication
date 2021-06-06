@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/serial-test-timer.dir/unit/unix_timer_tests.cc.o"
-  "/home/rog/Documents/USASOC/devel/lib/serial/serial-test-timer.pdb"
-  "/home/rog/Documents/USASOC/devel/lib/serial/serial-test-timer"
+  "/home/rog/Documents/dwCommunication/devel/lib/serial/serial-test-timer.pdb"
+  "/home/rog/Documents/dwCommunication/devel/lib/serial/serial-test-timer"
 )
 
 # Per-language clean rules from dependency scanning.

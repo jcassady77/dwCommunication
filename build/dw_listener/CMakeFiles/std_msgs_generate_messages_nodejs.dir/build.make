@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for std_msgs_generate_messages_nodejs.
 
@@ -63,10 +63,10 @@ dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build: std_msgs_gen
 .PHONY : dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
 
 dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean:
-	cd /home/rog/Documents/USASOC/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
 .PHONY : dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean
 
 dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/dw_listener /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/dw_listener /home/rog/Documents/USASOC/build/dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/dw_listener /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/dw_listener /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : dw_listener/CMakeFiles/std_msgs_generate_messages_nodejs.dir/depend
 

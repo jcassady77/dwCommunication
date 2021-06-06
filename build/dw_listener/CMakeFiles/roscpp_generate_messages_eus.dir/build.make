@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for roscpp_generate_messages_eus.
 
@@ -63,10 +63,10 @@ dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/build: roscpp_generate_m
 .PHONY : dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/build
 
 dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/clean:
-	cd /home/rog/Documents/USASOC/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_eus.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/dw_listener && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_eus.dir/cmake_clean.cmake
 .PHONY : dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/clean
 
 dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/dw_listener /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/dw_listener /home/rog/Documents/USASOC/build/dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/dw_listener /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/dw_listener /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : dw_listener/CMakeFiles/roscpp_generate_messages_eus.dir/depend
 

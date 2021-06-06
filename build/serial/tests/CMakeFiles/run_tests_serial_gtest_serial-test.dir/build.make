@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rog/Documents/USASOC/src
+CMAKE_SOURCE_DIR = /home/rog/Documents/dwCommunication/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
+CMAKE_BINARY_DIR = /home/rog/Documents/dwCommunication/build
 
 # Utility rule file for run_tests_serial_gtest_serial-test.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/rog/Documents/USASOC/build
 include serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/progress.make
 
 serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test:
-	cd /home/rog/Documents/USASOC/build/serial/tests && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/run_tests.py /home/rog/Documents/USASOC/build/test_results/serial/gtest-serial-test.xml "/home/rog/Documents/USASOC/devel/lib/serial/serial-test --gtest_output=xml:/home/rog/Documents/USASOC/build/test_results/serial/gtest-serial-test.xml"
+	cd /home/rog/Documents/dwCommunication/build/serial/tests && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/run_tests.py /home/rog/Documents/dwCommunication/build/test_results/serial/gtest-serial-test.xml "/home/rog/Documents/dwCommunication/devel/lib/serial/serial-test --gtest_output=xml:/home/rog/Documents/dwCommunication/build/test_results/serial/gtest-serial-test.xml"
 
 run_tests_serial_gtest_serial-test: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test
 run_tests_serial_gtest_serial-test: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build.make
@@ -67,10 +67,10 @@ serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build: run_tests_
 .PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build
 
 serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean:
-	cd /home/rog/Documents/USASOC/build/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/run_tests_serial_gtest_serial-test.dir/cmake_clean.cmake
+	cd /home/rog/Documents/dwCommunication/build/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/run_tests_serial_gtest_serial-test.dir/cmake_clean.cmake
 .PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean
 
 serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/depend:
-	cd /home/rog/Documents/USASOC/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/USASOC/src /home/rog/Documents/USASOC/src/serial/tests /home/rog/Documents/USASOC/build /home/rog/Documents/USASOC/build/serial/tests /home/rog/Documents/USASOC/build/serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rog/Documents/dwCommunication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rog/Documents/dwCommunication/src /home/rog/Documents/dwCommunication/src/serial/tests /home/rog/Documents/dwCommunication/build /home/rog/Documents/dwCommunication/build/serial/tests /home/rog/Documents/dwCommunication/build/serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/depend
 
