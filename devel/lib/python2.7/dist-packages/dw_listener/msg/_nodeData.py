@@ -8,7 +8,7 @@ import struct
 
 
 class nodeData(genpy.Message):
-  _md5sum = "33334d719b640f53532bf5bf4909ab5c"
+  _md5sum = "7d00dd29022068dcc8e90c26880f744d"
   _type = "dw_listener/nodeData"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """
@@ -19,16 +19,18 @@ int64 distance
 int64 degrees
 int64 Xcoord
 int64 Ycoord
-int64 XcoordFiltered
-int64 YcoordFiltered
 int64 clockOffset
 int64 serviceData
 int64 Xaccel
 int64 Yaccel
 int64 Zaccel
-"""
-  __slots__ = ['tagAddress','rangeNum','timeOfReception','distance','degrees','Xcoord','Ycoord','XcoordFiltered','YcoordFiltered','clockOffset','serviceData','Xaccel','Yaccel','Zaccel']
-  _slot_types = ['string','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64']
+
+int64 XcoordGateFiltered
+int64 YcoordGateFiltered
+int64 XcoordKalmanFiltered
+int64 YcoordKalmanFiltered"""
+  __slots__ = ['tagAddress','rangeNum','timeOfReception','distance','degrees','Xcoord','Ycoord','clockOffset','serviceData','Xaccel','Yaccel','Zaccel','XcoordGateFiltered','YcoordGateFiltered','XcoordKalmanFiltered','YcoordKalmanFiltered']
+  _slot_types = ['string','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64','int64']
 
   def __init__(self, *args, **kwds):
     """
@@ -38,7 +40,7 @@ int64 Zaccel
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       tagAddress,rangeNum,timeOfReception,distance,degrees,Xcoord,Ycoord,XcoordFiltered,YcoordFiltered,clockOffset,serviceData,Xaccel,Yaccel,Zaccel
+       tagAddress,rangeNum,timeOfReception,distance,degrees,Xcoord,Ycoord,clockOffset,serviceData,Xaccel,Yaccel,Zaccel,XcoordGateFiltered,YcoordGateFiltered,XcoordKalmanFiltered,YcoordKalmanFiltered
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -61,10 +63,6 @@ int64 Zaccel
         self.Xcoord = 0
       if self.Ycoord is None:
         self.Ycoord = 0
-      if self.XcoordFiltered is None:
-        self.XcoordFiltered = 0
-      if self.YcoordFiltered is None:
-        self.YcoordFiltered = 0
       if self.clockOffset is None:
         self.clockOffset = 0
       if self.serviceData is None:
@@ -75,6 +73,14 @@ int64 Zaccel
         self.Yaccel = 0
       if self.Zaccel is None:
         self.Zaccel = 0
+      if self.XcoordGateFiltered is None:
+        self.XcoordGateFiltered = 0
+      if self.YcoordGateFiltered is None:
+        self.YcoordGateFiltered = 0
+      if self.XcoordKalmanFiltered is None:
+        self.XcoordKalmanFiltered = 0
+      if self.YcoordKalmanFiltered is None:
+        self.YcoordKalmanFiltered = 0
     else:
       self.tagAddress = ''
       self.rangeNum = 0
@@ -83,13 +89,15 @@ int64 Zaccel
       self.degrees = 0
       self.Xcoord = 0
       self.Ycoord = 0
-      self.XcoordFiltered = 0
-      self.YcoordFiltered = 0
       self.clockOffset = 0
       self.serviceData = 0
       self.Xaccel = 0
       self.Yaccel = 0
       self.Zaccel = 0
+      self.XcoordGateFiltered = 0
+      self.YcoordGateFiltered = 0
+      self.XcoordKalmanFiltered = 0
+      self.YcoordKalmanFiltered = 0
 
   def _get_types(self):
     """
@@ -110,7 +118,7 @@ int64 Zaccel
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_13q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.XcoordFiltered, _x.YcoordFiltered, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel))
+      buff.write(_get_struct_15q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel, _x.XcoordGateFiltered, _x.YcoordGateFiltered, _x.XcoordKalmanFiltered, _x.YcoordKalmanFiltered))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -133,8 +141,8 @@ int64 Zaccel
         self.tagAddress = str[start:end]
       _x = self
       start = end
-      end += 104
-      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.XcoordFiltered, _x.YcoordFiltered, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel,) = _get_struct_13q().unpack(str[start:end])
+      end += 120
+      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel, _x.XcoordGateFiltered, _x.YcoordGateFiltered, _x.XcoordKalmanFiltered, _x.YcoordKalmanFiltered,) = _get_struct_15q().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -154,7 +162,7 @@ int64 Zaccel
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_13q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.XcoordFiltered, _x.YcoordFiltered, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel))
+      buff.write(_get_struct_15q().pack(_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel, _x.XcoordGateFiltered, _x.YcoordGateFiltered, _x.XcoordKalmanFiltered, _x.YcoordKalmanFiltered))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -178,8 +186,8 @@ int64 Zaccel
         self.tagAddress = str[start:end]
       _x = self
       start = end
-      end += 104
-      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.XcoordFiltered, _x.YcoordFiltered, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel,) = _get_struct_13q().unpack(str[start:end])
+      end += 120
+      (_x.rangeNum, _x.timeOfReception, _x.distance, _x.degrees, _x.Xcoord, _x.Ycoord, _x.clockOffset, _x.serviceData, _x.Xaccel, _x.Yaccel, _x.Zaccel, _x.XcoordGateFiltered, _x.YcoordGateFiltered, _x.XcoordKalmanFiltered, _x.YcoordKalmanFiltered,) = _get_struct_15q().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -188,9 +196,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_13q = None
-def _get_struct_13q():
-    global _struct_13q
-    if _struct_13q is None:
-        _struct_13q = struct.Struct("<13q")
-    return _struct_13q
+_struct_15q = None
+def _get_struct_15q():
+    global _struct_15q
+    if _struct_15q is None:
+        _struct_15q = struct.Struct("<15q")
+    return _struct_15q

@@ -1,6 +1,8 @@
 #include "dw_node.h"
 
-#include "kalman_filter.h"
+//#include "kalman/kalman_filter.h"
+#include <vector>
+#include <random>
 #include "serial/serial.h"
 #include <stdio.h>
 #include "ros/ros.h"
@@ -15,8 +17,11 @@
 #include <cmath>
 #include "kalman_filter.h"
 
-
-
+#include <armadillo>
+#include <stdexcept>
+using namespace arma;
+using namespace std;
+using namespace kf;
 
 dw_listener::nodeData dw_data::buildRosMsg() {
     dw_listener::nodeData msg;
@@ -27,8 +32,10 @@ dw_listener::nodeData dw_data::buildRosMsg() {
     msg.degrees = degrees.data;
     msg.Xcoord = Xcoord.data;
     msg.Ycoord = Ycoord.data;
-    msg.XcoordFiltered = XcoordFiltered.data;
-    msg.YcoordFiltered = YcoordFiltered.data;
+    msg.XcoordGateFiltered = XcoordGateFiltered.data;
+    msg.YcoordGateFiltered = YcoordGateFiltered.data;
+    msg.XcoordKalmanFiltered = XcoordKalmanFiltered.data;
+    msg.YcoordKalmanFiltered = YcoordKalmanFiltered.data;
     msg.clockOffset = clockOffset.data;
     msg.serviceData = serviceData.data;
     msg.Xaccel = Xaccel.data;
@@ -77,12 +84,12 @@ void dw_data::gateFilter() {
     //Implement Gate
     if (abs(Xcoord.data - xHistory[0].data) > (stdevX * GATE_VALUE))
     {
-        XcoordFiltered.data = xHistory[0].data;
+        XcoordGateFiltered.data = xHistory[0].data;
         //this->Xcoord = this->xHistory[0];
     }
     if (abs(Ycoord.data - yHistory[0].data) > (stdevY * GATE_VALUE))
     {
-        YcoordFiltered.data = yHistory[0].data;
+        YcoordGateFiltered.data = yHistory[0].data;
         //this->Ycoord = this->yHistory[0];
     }
     
@@ -114,8 +121,8 @@ void dw_data::gateFilter2() {
     meanX /= xCount;// + 1;
     meanY /= yCount;// + 1;
     
-    XcoordFiltered.data = meanX;
-    YcoordFiltered.data = meanY;
+    XcoordGateFiltered.data = meanX;
+    YcoordGateFiltered.data = meanY;
 }
 
 int main(int argc, char **argv)
@@ -124,8 +131,50 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "dw");
     ros::NodeHandle n;
     ros::Publisher dw_pub = n.advertise<dw_listener::nodeData>("dw_data", 1000);
-    ros::Rate loop_rate(10);
+    double dt = 0.1;
+    ros::Rate loop_rate(dt*100);
 
+    //Kalman Filter Variables
+    double measurement_mu = 0.0;      // Mean
+    double measurement_sigma = 0.5;   // Standard deviation
+
+    double process_mu = 0.0;
+    double process_sigma = 0.05;
+
+    default_random_engine generator;
+    normal_distribution<double> measurement_noise(measurement_mu, measurement_sigma);
+    normal_distribution<double> process_noise(process_mu, process_sigma);
+    
+    double trueXaccel = 0;
+    double trueYaccel = 0;
+    double trueXvel = 0;
+    double trueYvel = 0;
+    double trueXDpos = 0;
+    double trueYDpos = 0;
+
+    // Preparing KF
+    mat A = {   {1.0, 0.0, 0.0, 0.0},
+                {dt, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, dt, 1.0} 
+                };
+
+    mat B = {   {dt, 0.0},
+                {dt * dt / 2.0, 0.0},
+                {0.0, dt},
+                {0.0, dt * dt / 2.0}
+                };
+
+    mat C = {0.0, 1.0, 0.0, 1.0};
+
+    kf::KalmanFilter kf(A, B, C);
+
+    // The process and measurement covariances are sort of tunning parameters
+    mat Q = {{0.001, 0.0}, {0.0, 0.001}};
+    mat R = {1.0};   
+
+    //kf.setProcessCovariance(Q);
+    //kf.setOutputCovariance(R);
 
     try {
         //Set up monitor for serial port
@@ -173,6 +222,11 @@ int main(int argc, char **argv)
             message.gateFilter2();
 
             //Kalman Filter
+
+            //kf.updateState({message.Xaccel.data, message.Yaccel.data}, {message.XcoordGateFiltered.data, message.YcoordGateFiltered.data});
+            
+            //vec estimate = kf.getEstimate();
+            //SEND TO ROS MSG
 
 
             dw_pub.publish(message.buildRosMsg());

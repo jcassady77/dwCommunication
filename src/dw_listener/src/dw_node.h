@@ -45,9 +45,13 @@ class dw_data {
         //Interpreted Data
         std_msgs::Int64 xHistory[FILTER_SIZE];
         std_msgs::Int64 yHistory[FILTER_SIZE];
+        std_msgs::Int64 xHistoryFilter[FILTER_SIZE];
+        std_msgs::Int64 yHistoryFilter[FILTER_SIZE];
 
-        std_msgs::Int64 XcoordFiltered;
-        std_msgs::Int64 YcoordFiltered;
+        std_msgs::Int64 XcoordGateFiltered;
+        std_msgs::Int64 YcoordGateFiltered;
+        std_msgs::Int64 XcoordKalmanFiltered;
+        std_msgs::Int64 YcoordKalmanFiltered;
 
         //Methods
         dw_listener::nodeData buildRosMsg();

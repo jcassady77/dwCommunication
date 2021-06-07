@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   serial
   message_generation
+  kalman
 )
 
 ## System dependencies are found with CMake's conventions

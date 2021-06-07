@@ -1,0 +1,8 @@
+prefix=/home/rog/Documents/dwCommunication/install
+
+Name: kalman
+Description: Description of kalman
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -14,7 +14,7 @@
 
 (defclass dw_listener::nodeData
   :super ros::object
-  :slots (_tagAddress _rangeNum _timeOfReception _distance _degrees _Xcoord _Ycoord _XcoordFiltered _YcoordFiltered _clockOffset _serviceData _Xaccel _Yaccel _Zaccel ))
+  :slots (_tagAddress _rangeNum _timeOfReception _distance _degrees _Xcoord _Ycoord _clockOffset _serviceData _Xaccel _Yaccel _Zaccel _XcoordGateFiltered _YcoordGateFiltered _XcoordKalmanFiltered _YcoordKalmanFiltered ))
 
 (defmethod dw_listener::nodeData
   (:init
@@ -26,13 +26,15 @@
     ((:degrees __degrees) 0)
     ((:Xcoord __Xcoord) 0)
     ((:Ycoord __Ycoord) 0)
-    ((:XcoordFiltered __XcoordFiltered) 0)
-    ((:YcoordFiltered __YcoordFiltered) 0)
     ((:clockOffset __clockOffset) 0)
     ((:serviceData __serviceData) 0)
     ((:Xaccel __Xaccel) 0)
     ((:Yaccel __Yaccel) 0)
     ((:Zaccel __Zaccel) 0)
+    ((:XcoordGateFiltered __XcoordGateFiltered) 0)
+    ((:YcoordGateFiltered __YcoordGateFiltered) 0)
+    ((:XcoordKalmanFiltered __XcoordKalmanFiltered) 0)
+    ((:YcoordKalmanFiltered __YcoordKalmanFiltered) 0)
     )
    (send-super :init)
    (setq _tagAddress (string __tagAddress))
@@ -42,13 +44,15 @@
    (setq _degrees (round __degrees))
    (setq _Xcoord (round __Xcoord))
    (setq _Ycoord (round __Ycoord))
-   (setq _XcoordFiltered (round __XcoordFiltered))
-   (setq _YcoordFiltered (round __YcoordFiltered))
    (setq _clockOffset (round __clockOffset))
    (setq _serviceData (round __serviceData))
    (setq _Xaccel (round __Xaccel))
    (setq _Yaccel (round __Yaccel))
    (setq _Zaccel (round __Zaccel))
+   (setq _XcoordGateFiltered (round __XcoordGateFiltered))
+   (setq _YcoordGateFiltered (round __YcoordGateFiltered))
+   (setq _XcoordKalmanFiltered (round __XcoordKalmanFiltered))
+   (setq _YcoordKalmanFiltered (round __YcoordKalmanFiltered))
    self)
   (:tagAddress
    (&optional __tagAddress)
@@ -71,12 +75,6 @@
   (:Ycoord
    (&optional __Ycoord)
    (if __Ycoord (setq _Ycoord __Ycoord)) _Ycoord)
-  (:XcoordFiltered
-   (&optional __XcoordFiltered)
-   (if __XcoordFiltered (setq _XcoordFiltered __XcoordFiltered)) _XcoordFiltered)
-  (:YcoordFiltered
-   (&optional __YcoordFiltered)
-   (if __YcoordFiltered (setq _YcoordFiltered __YcoordFiltered)) _YcoordFiltered)
   (:clockOffset
    (&optional __clockOffset)
    (if __clockOffset (setq _clockOffset __clockOffset)) _clockOffset)
@@ -92,6 +90,18 @@
   (:Zaccel
    (&optional __Zaccel)
    (if __Zaccel (setq _Zaccel __Zaccel)) _Zaccel)
+  (:XcoordGateFiltered
+   (&optional __XcoordGateFiltered)
+   (if __XcoordGateFiltered (setq _XcoordGateFiltered __XcoordGateFiltered)) _XcoordGateFiltered)
+  (:YcoordGateFiltered
+   (&optional __YcoordGateFiltered)
+   (if __YcoordGateFiltered (setq _YcoordGateFiltered __YcoordGateFiltered)) _YcoordGateFiltered)
+  (:XcoordKalmanFiltered
+   (&optional __XcoordKalmanFiltered)
+   (if __XcoordKalmanFiltered (setq _XcoordKalmanFiltered __XcoordKalmanFiltered)) _XcoordKalmanFiltered)
+  (:YcoordKalmanFiltered
+   (&optional __YcoordKalmanFiltered)
+   (if __YcoordKalmanFiltered (setq _YcoordKalmanFiltered __YcoordKalmanFiltered)) _YcoordKalmanFiltered)
   (:serialization-length
    ()
    (+
@@ -109,10 +119,6 @@
     8
     ;; int64 _Ycoord
     8
-    ;; int64 _XcoordFiltered
-    8
-    ;; int64 _YcoordFiltered
-    8
     ;; int64 _clockOffset
     8
     ;; int64 _serviceData
@@ -122,6 +128,14 @@
     ;; int64 _Yaccel
     8
     ;; int64 _Zaccel
+    8
+    ;; int64 _XcoordGateFiltered
+    8
+    ;; int64 _YcoordGateFiltered
+    8
+    ;; int64 _XcoordKalmanFiltered
+    8
+    ;; int64 _YcoordKalmanFiltered
     8
     ))
   (:serialize
@@ -202,30 +216,6 @@
               (write-long (if (>= _Ycoord 0) 0 #xffffffff) s))
              (t                                         ;; integer
               (write-long _Ycoord s)(write-long (if (>= _Ycoord 0) 0 #xffffffff) s)))
-     ;; int64 _XcoordFiltered
-#+(or :alpha :irix6 :x86_64)
-       (progn (sys::poke _XcoordFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
-#-(or :alpha :irix6 :x86_64)
-       (cond ((and (class _XcoordFiltered) (= (length (_XcoordFiltered . bv)) 2)) ;; bignum
-              (write-long (ash (elt (_XcoordFiltered . bv) 0) 0) s)
-              (write-long (ash (elt (_XcoordFiltered . bv) 1) -1) s))
-             ((and (class _XcoordFiltered) (= (length (_XcoordFiltered . bv)) 1)) ;; big1
-              (write-long (elt (_XcoordFiltered . bv) 0) s)
-              (write-long (if (>= _XcoordFiltered 0) 0 #xffffffff) s))
-             (t                                         ;; integer
-              (write-long _XcoordFiltered s)(write-long (if (>= _XcoordFiltered 0) 0 #xffffffff) s)))
-     ;; int64 _YcoordFiltered
-#+(or :alpha :irix6 :x86_64)
-       (progn (sys::poke _YcoordFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
-#-(or :alpha :irix6 :x86_64)
-       (cond ((and (class _YcoordFiltered) (= (length (_YcoordFiltered . bv)) 2)) ;; bignum
-              (write-long (ash (elt (_YcoordFiltered . bv) 0) 0) s)
-              (write-long (ash (elt (_YcoordFiltered . bv) 1) -1) s))
-             ((and (class _YcoordFiltered) (= (length (_YcoordFiltered . bv)) 1)) ;; big1
-              (write-long (elt (_YcoordFiltered . bv) 0) s)
-              (write-long (if (>= _YcoordFiltered 0) 0 #xffffffff) s))
-             (t                                         ;; integer
-              (write-long _YcoordFiltered s)(write-long (if (>= _YcoordFiltered 0) 0 #xffffffff) s)))
      ;; int64 _clockOffset
 #+(or :alpha :irix6 :x86_64)
        (progn (sys::poke _clockOffset (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
@@ -286,6 +276,54 @@
               (write-long (if (>= _Zaccel 0) 0 #xffffffff) s))
              (t                                         ;; integer
               (write-long _Zaccel s)(write-long (if (>= _Zaccel 0) 0 #xffffffff) s)))
+     ;; int64 _XcoordGateFiltered
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _XcoordGateFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _XcoordGateFiltered) (= (length (_XcoordGateFiltered . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_XcoordGateFiltered . bv) 0) 0) s)
+              (write-long (ash (elt (_XcoordGateFiltered . bv) 1) -1) s))
+             ((and (class _XcoordGateFiltered) (= (length (_XcoordGateFiltered . bv)) 1)) ;; big1
+              (write-long (elt (_XcoordGateFiltered . bv) 0) s)
+              (write-long (if (>= _XcoordGateFiltered 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _XcoordGateFiltered s)(write-long (if (>= _XcoordGateFiltered 0) 0 #xffffffff) s)))
+     ;; int64 _YcoordGateFiltered
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _YcoordGateFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _YcoordGateFiltered) (= (length (_YcoordGateFiltered . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_YcoordGateFiltered . bv) 0) 0) s)
+              (write-long (ash (elt (_YcoordGateFiltered . bv) 1) -1) s))
+             ((and (class _YcoordGateFiltered) (= (length (_YcoordGateFiltered . bv)) 1)) ;; big1
+              (write-long (elt (_YcoordGateFiltered . bv) 0) s)
+              (write-long (if (>= _YcoordGateFiltered 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _YcoordGateFiltered s)(write-long (if (>= _YcoordGateFiltered 0) 0 #xffffffff) s)))
+     ;; int64 _XcoordKalmanFiltered
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _XcoordKalmanFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _XcoordKalmanFiltered) (= (length (_XcoordKalmanFiltered . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_XcoordKalmanFiltered . bv) 0) 0) s)
+              (write-long (ash (elt (_XcoordKalmanFiltered . bv) 1) -1) s))
+             ((and (class _XcoordKalmanFiltered) (= (length (_XcoordKalmanFiltered . bv)) 1)) ;; big1
+              (write-long (elt (_XcoordKalmanFiltered . bv) 0) s)
+              (write-long (if (>= _XcoordKalmanFiltered 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _XcoordKalmanFiltered s)(write-long (if (>= _XcoordKalmanFiltered 0) 0 #xffffffff) s)))
+     ;; int64 _YcoordKalmanFiltered
+#+(or :alpha :irix6 :x86_64)
+       (progn (sys::poke _YcoordKalmanFiltered (send s :buffer) (send s :count) :long) (incf (stream-count s) 8))
+#-(or :alpha :irix6 :x86_64)
+       (cond ((and (class _YcoordKalmanFiltered) (= (length (_YcoordKalmanFiltered . bv)) 2)) ;; bignum
+              (write-long (ash (elt (_YcoordKalmanFiltered . bv) 0) 0) s)
+              (write-long (ash (elt (_YcoordKalmanFiltered . bv) 1) -1) s))
+             ((and (class _YcoordKalmanFiltered) (= (length (_YcoordKalmanFiltered . bv)) 1)) ;; big1
+              (write-long (elt (_YcoordKalmanFiltered . bv) 0) s)
+              (write-long (if (>= _YcoordKalmanFiltered 0) 0 #xffffffff) s))
+             (t                                         ;; integer
+              (write-long _YcoordKalmanFiltered s)(write-long (if (>= _YcoordKalmanFiltered 0) 0 #xffffffff) s)))
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -364,30 +402,6 @@
                       b0)
                     ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
                     (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
-   ;; int64 _XcoordFiltered
-#+(or :alpha :irix6 :x86_64)
-      (setf _XcoordFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
-#-(or :alpha :irix6 :x86_64)
-      (setf _XcoordFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
-                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
-              (cond ((= b1 -1) b0)
-                     ((and (= b1  0)
-                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
-                      b0)
-                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
-                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
-   ;; int64 _YcoordFiltered
-#+(or :alpha :irix6 :x86_64)
-      (setf _YcoordFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
-#-(or :alpha :irix6 :x86_64)
-      (setf _YcoordFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
-                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
-              (cond ((= b1 -1) b0)
-                     ((and (= b1  0)
-                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
-                      b0)
-                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
-                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
    ;; int64 _clockOffset
 #+(or :alpha :irix6 :x86_64)
       (setf _clockOffset (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
@@ -448,11 +462,59 @@
                       b0)
                     ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
                     (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _XcoordGateFiltered
+#+(or :alpha :irix6 :x86_64)
+      (setf _XcoordGateFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _XcoordGateFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _YcoordGateFiltered
+#+(or :alpha :irix6 :x86_64)
+      (setf _YcoordGateFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _YcoordGateFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _XcoordKalmanFiltered
+#+(or :alpha :irix6 :x86_64)
+      (setf _XcoordKalmanFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _XcoordKalmanFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
+   ;; int64 _YcoordKalmanFiltered
+#+(or :alpha :irix6 :x86_64)
+      (setf _YcoordKalmanFiltered (prog1 (sys::peek buf ptr- :long) (incf ptr- 8)))
+#-(or :alpha :irix6 :x86_64)
+      (setf _YcoordKalmanFiltered (let ((b0 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4)))
+                  (b1 (prog1 (sys::peek buf ptr- :integer) (incf ptr- 4))))
+              (cond ((= b1 -1) b0)
+                     ((and (= b1  0)
+                           (<= lisp::most-negative-fixnum b0 lisp::most-positive-fixnum))
+                      b0)
+                    ((= b1  0) (make-instance bignum :size 1 :bv (integer-vector b0)))
+                    (t (make-instance bignum :size 2 :bv (integer-vector b0 (ash b1 1)))))))
    ;;
    self)
   )
 
-(setf (get dw_listener::nodeData :md5sum-) "33334d719b640f53532bf5bf4909ab5c")
+(setf (get dw_listener::nodeData :md5sum-) "7d00dd29022068dcc8e90c26880f744d")
 (setf (get dw_listener::nodeData :datatype-) "dw_listener/nodeData")
 (setf (get dw_listener::nodeData :definition-)
       "
@@ -463,18 +525,20 @@ int64 distance
 int64 degrees
 int64 Xcoord
 int64 Ycoord
-int64 XcoordFiltered
-int64 YcoordFiltered
 int64 clockOffset
 int64 serviceData
 int64 Xaccel
 int64 Yaccel
 int64 Zaccel
 
+int64 XcoordGateFiltered
+int64 YcoordGateFiltered
+int64 XcoordKalmanFiltered
+int64 YcoordKalmanFiltered
 ")
 
 
 
-(provide :dw_listener/nodeData "33334d719b640f53532bf5bf4909ab5c")
+(provide :dw_listener/nodeData "7d00dd29022068dcc8e90c26880f744d")
 
 

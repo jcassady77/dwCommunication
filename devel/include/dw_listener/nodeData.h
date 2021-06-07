@@ -31,13 +31,15 @@ struct nodeData_
     , degrees(0)
     , Xcoord(0)
     , Ycoord(0)
-    , XcoordFiltered(0)
-    , YcoordFiltered(0)
     , clockOffset(0)
     , serviceData(0)
     , Xaccel(0)
     , Yaccel(0)
-    , Zaccel(0)  {
+    , Zaccel(0)
+    , XcoordGateFiltered(0)
+    , YcoordGateFiltered(0)
+    , XcoordKalmanFiltered(0)
+    , YcoordKalmanFiltered(0)  {
     }
   nodeData_(const ContainerAllocator& _alloc)
     : tagAddress(_alloc)
@@ -47,13 +49,15 @@ struct nodeData_
     , degrees(0)
     , Xcoord(0)
     , Ycoord(0)
-    , XcoordFiltered(0)
-    , YcoordFiltered(0)
     , clockOffset(0)
     , serviceData(0)
     , Xaccel(0)
     , Yaccel(0)
-    , Zaccel(0)  {
+    , Zaccel(0)
+    , XcoordGateFiltered(0)
+    , YcoordGateFiltered(0)
+    , XcoordKalmanFiltered(0)
+    , YcoordKalmanFiltered(0)  {
   (void)_alloc;
     }
 
@@ -80,12 +84,6 @@ struct nodeData_
    typedef int64_t _Ycoord_type;
   _Ycoord_type Ycoord;
 
-   typedef int64_t _XcoordFiltered_type;
-  _XcoordFiltered_type XcoordFiltered;
-
-   typedef int64_t _YcoordFiltered_type;
-  _YcoordFiltered_type YcoordFiltered;
-
    typedef int64_t _clockOffset_type;
   _clockOffset_type clockOffset;
 
@@ -100,6 +98,18 @@ struct nodeData_
 
    typedef int64_t _Zaccel_type;
   _Zaccel_type Zaccel;
+
+   typedef int64_t _XcoordGateFiltered_type;
+  _XcoordGateFiltered_type XcoordGateFiltered;
+
+   typedef int64_t _YcoordGateFiltered_type;
+  _YcoordGateFiltered_type YcoordGateFiltered;
+
+   typedef int64_t _XcoordKalmanFiltered_type;
+  _XcoordKalmanFiltered_type XcoordKalmanFiltered;
+
+   typedef int64_t _YcoordKalmanFiltered_type;
+  _YcoordKalmanFiltered_type YcoordKalmanFiltered;
 
 
 
@@ -137,13 +147,15 @@ bool operator==(const ::dw_listener::nodeData_<ContainerAllocator1> & lhs, const
     lhs.degrees == rhs.degrees &&
     lhs.Xcoord == rhs.Xcoord &&
     lhs.Ycoord == rhs.Ycoord &&
-    lhs.XcoordFiltered == rhs.XcoordFiltered &&
-    lhs.YcoordFiltered == rhs.YcoordFiltered &&
     lhs.clockOffset == rhs.clockOffset &&
     lhs.serviceData == rhs.serviceData &&
     lhs.Xaccel == rhs.Xaccel &&
     lhs.Yaccel == rhs.Yaccel &&
-    lhs.Zaccel == rhs.Zaccel;
+    lhs.Zaccel == rhs.Zaccel &&
+    lhs.XcoordGateFiltered == rhs.XcoordGateFiltered &&
+    lhs.YcoordGateFiltered == rhs.YcoordGateFiltered &&
+    lhs.XcoordKalmanFiltered == rhs.XcoordKalmanFiltered &&
+    lhs.YcoordKalmanFiltered == rhs.YcoordKalmanFiltered;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -200,12 +212,12 @@ struct MD5Sum< ::dw_listener::nodeData_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "33334d719b640f53532bf5bf4909ab5c";
+    return "7d00dd29022068dcc8e90c26880f744d";
   }
 
   static const char* value(const ::dw_listener::nodeData_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x33334d719b640f53ULL;
-  static const uint64_t static_value2 = 0x532bf5bf4909ab5cULL;
+  static const uint64_t static_value1 = 0x7d00dd29022068dcULL;
+  static const uint64_t static_value2 = 0xc8e90c26880f744dULL;
 };
 
 template<class ContainerAllocator>
@@ -232,13 +244,16 @@ struct Definition< ::dw_listener::nodeData_<ContainerAllocator> >
 "int64 degrees\n"
 "int64 Xcoord\n"
 "int64 Ycoord\n"
-"int64 XcoordFiltered\n"
-"int64 YcoordFiltered\n"
 "int64 clockOffset\n"
 "int64 serviceData\n"
 "int64 Xaccel\n"
 "int64 Yaccel\n"
 "int64 Zaccel\n"
+"\n"
+"int64 XcoordGateFiltered\n"
+"int64 YcoordGateFiltered\n"
+"int64 XcoordKalmanFiltered\n"
+"int64 YcoordKalmanFiltered\n"
 ;
   }
 
@@ -264,13 +279,15 @@ namespace serialization
       stream.next(m.degrees);
       stream.next(m.Xcoord);
       stream.next(m.Ycoord);
-      stream.next(m.XcoordFiltered);
-      stream.next(m.YcoordFiltered);
       stream.next(m.clockOffset);
       stream.next(m.serviceData);
       stream.next(m.Xaccel);
       stream.next(m.Yaccel);
       stream.next(m.Zaccel);
+      stream.next(m.XcoordGateFiltered);
+      stream.next(m.YcoordGateFiltered);
+      stream.next(m.XcoordKalmanFiltered);
+      stream.next(m.YcoordKalmanFiltered);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -303,10 +320,6 @@ struct Printer< ::dw_listener::nodeData_<ContainerAllocator> >
     Printer<int64_t>::stream(s, indent + "  ", v.Xcoord);
     s << indent << "Ycoord: ";
     Printer<int64_t>::stream(s, indent + "  ", v.Ycoord);
-    s << indent << "XcoordFiltered: ";
-    Printer<int64_t>::stream(s, indent + "  ", v.XcoordFiltered);
-    s << indent << "YcoordFiltered: ";
-    Printer<int64_t>::stream(s, indent + "  ", v.YcoordFiltered);
     s << indent << "clockOffset: ";
     Printer<int64_t>::stream(s, indent + "  ", v.clockOffset);
     s << indent << "serviceData: ";
@@ -317,6 +330,14 @@ struct Printer< ::dw_listener::nodeData_<ContainerAllocator> >
     Printer<int64_t>::stream(s, indent + "  ", v.Yaccel);
     s << indent << "Zaccel: ";
     Printer<int64_t>::stream(s, indent + "  ", v.Zaccel);
+    s << indent << "XcoordGateFiltered: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.XcoordGateFiltered);
+    s << indent << "YcoordGateFiltered: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.YcoordGateFiltered);
+    s << indent << "XcoordKalmanFiltered: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.XcoordKalmanFiltered);
+    s << indent << "YcoordKalmanFiltered: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.YcoordKalmanFiltered);
   }
 };
 

@@ -25,13 +25,15 @@ class nodeData {
       this.degrees = null;
       this.Xcoord = null;
       this.Ycoord = null;
-      this.XcoordFiltered = null;
-      this.YcoordFiltered = null;
       this.clockOffset = null;
       this.serviceData = null;
       this.Xaccel = null;
       this.Yaccel = null;
       this.Zaccel = null;
+      this.XcoordGateFiltered = null;
+      this.YcoordGateFiltered = null;
+      this.XcoordKalmanFiltered = null;
+      this.YcoordKalmanFiltered = null;
     }
     else {
       if (initObj.hasOwnProperty('tagAddress')) {
@@ -76,18 +78,6 @@ class nodeData {
       else {
         this.Ycoord = 0;
       }
-      if (initObj.hasOwnProperty('XcoordFiltered')) {
-        this.XcoordFiltered = initObj.XcoordFiltered
-      }
-      else {
-        this.XcoordFiltered = 0;
-      }
-      if (initObj.hasOwnProperty('YcoordFiltered')) {
-        this.YcoordFiltered = initObj.YcoordFiltered
-      }
-      else {
-        this.YcoordFiltered = 0;
-      }
       if (initObj.hasOwnProperty('clockOffset')) {
         this.clockOffset = initObj.clockOffset
       }
@@ -118,6 +108,30 @@ class nodeData {
       else {
         this.Zaccel = 0;
       }
+      if (initObj.hasOwnProperty('XcoordGateFiltered')) {
+        this.XcoordGateFiltered = initObj.XcoordGateFiltered
+      }
+      else {
+        this.XcoordGateFiltered = 0;
+      }
+      if (initObj.hasOwnProperty('YcoordGateFiltered')) {
+        this.YcoordGateFiltered = initObj.YcoordGateFiltered
+      }
+      else {
+        this.YcoordGateFiltered = 0;
+      }
+      if (initObj.hasOwnProperty('XcoordKalmanFiltered')) {
+        this.XcoordKalmanFiltered = initObj.XcoordKalmanFiltered
+      }
+      else {
+        this.XcoordKalmanFiltered = 0;
+      }
+      if (initObj.hasOwnProperty('YcoordKalmanFiltered')) {
+        this.YcoordKalmanFiltered = initObj.YcoordKalmanFiltered
+      }
+      else {
+        this.YcoordKalmanFiltered = 0;
+      }
     }
   }
 
@@ -137,10 +151,6 @@ class nodeData {
     bufferOffset = _serializer.int64(obj.Xcoord, buffer, bufferOffset);
     // Serialize message field [Ycoord]
     bufferOffset = _serializer.int64(obj.Ycoord, buffer, bufferOffset);
-    // Serialize message field [XcoordFiltered]
-    bufferOffset = _serializer.int64(obj.XcoordFiltered, buffer, bufferOffset);
-    // Serialize message field [YcoordFiltered]
-    bufferOffset = _serializer.int64(obj.YcoordFiltered, buffer, bufferOffset);
     // Serialize message field [clockOffset]
     bufferOffset = _serializer.int64(obj.clockOffset, buffer, bufferOffset);
     // Serialize message field [serviceData]
@@ -151,6 +161,14 @@ class nodeData {
     bufferOffset = _serializer.int64(obj.Yaccel, buffer, bufferOffset);
     // Serialize message field [Zaccel]
     bufferOffset = _serializer.int64(obj.Zaccel, buffer, bufferOffset);
+    // Serialize message field [XcoordGateFiltered]
+    bufferOffset = _serializer.int64(obj.XcoordGateFiltered, buffer, bufferOffset);
+    // Serialize message field [YcoordGateFiltered]
+    bufferOffset = _serializer.int64(obj.YcoordGateFiltered, buffer, bufferOffset);
+    // Serialize message field [XcoordKalmanFiltered]
+    bufferOffset = _serializer.int64(obj.XcoordKalmanFiltered, buffer, bufferOffset);
+    // Serialize message field [YcoordKalmanFiltered]
+    bufferOffset = _serializer.int64(obj.YcoordKalmanFiltered, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -172,10 +190,6 @@ class nodeData {
     data.Xcoord = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [Ycoord]
     data.Ycoord = _deserializer.int64(buffer, bufferOffset);
-    // Deserialize message field [XcoordFiltered]
-    data.XcoordFiltered = _deserializer.int64(buffer, bufferOffset);
-    // Deserialize message field [YcoordFiltered]
-    data.YcoordFiltered = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [clockOffset]
     data.clockOffset = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [serviceData]
@@ -186,13 +200,21 @@ class nodeData {
     data.Yaccel = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [Zaccel]
     data.Zaccel = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [XcoordGateFiltered]
+    data.XcoordGateFiltered = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [YcoordGateFiltered]
+    data.YcoordGateFiltered = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [XcoordKalmanFiltered]
+    data.XcoordKalmanFiltered = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [YcoordKalmanFiltered]
+    data.YcoordKalmanFiltered = _deserializer.int64(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
     length += object.tagAddress.length;
-    return length + 108;
+    return length + 124;
   }
 
   static datatype() {
@@ -202,7 +224,7 @@ class nodeData {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '33334d719b640f53532bf5bf4909ab5c';
+    return '7d00dd29022068dcc8e90c26880f744d';
   }
 
   static messageDefinition() {
@@ -216,14 +238,16 @@ class nodeData {
     int64 degrees
     int64 Xcoord
     int64 Ycoord
-    int64 XcoordFiltered
-    int64 YcoordFiltered
     int64 clockOffset
     int64 serviceData
     int64 Xaccel
     int64 Yaccel
     int64 Zaccel
     
+    int64 XcoordGateFiltered
+    int64 YcoordGateFiltered
+    int64 XcoordKalmanFiltered
+    int64 YcoordKalmanFiltered
     `;
   }
 
@@ -282,20 +306,6 @@ class nodeData {
       resolved.Ycoord = 0
     }
 
-    if (msg.XcoordFiltered !== undefined) {
-      resolved.XcoordFiltered = msg.XcoordFiltered;
-    }
-    else {
-      resolved.XcoordFiltered = 0
-    }
-
-    if (msg.YcoordFiltered !== undefined) {
-      resolved.YcoordFiltered = msg.YcoordFiltered;
-    }
-    else {
-      resolved.YcoordFiltered = 0
-    }
-
     if (msg.clockOffset !== undefined) {
       resolved.clockOffset = msg.clockOffset;
     }
@@ -329,6 +339,34 @@ class nodeData {
     }
     else {
       resolved.Zaccel = 0
+    }
+
+    if (msg.XcoordGateFiltered !== undefined) {
+      resolved.XcoordGateFiltered = msg.XcoordGateFiltered;
+    }
+    else {
+      resolved.XcoordGateFiltered = 0
+    }
+
+    if (msg.YcoordGateFiltered !== undefined) {
+      resolved.YcoordGateFiltered = msg.YcoordGateFiltered;
+    }
+    else {
+      resolved.YcoordGateFiltered = 0
+    }
+
+    if (msg.XcoordKalmanFiltered !== undefined) {
+      resolved.XcoordKalmanFiltered = msg.XcoordKalmanFiltered;
+    }
+    else {
+      resolved.XcoordKalmanFiltered = 0
+    }
+
+    if (msg.YcoordKalmanFiltered !== undefined) {
+      resolved.YcoordKalmanFiltered = msg.YcoordKalmanFiltered;
+    }
+    else {
+      resolved.YcoordKalmanFiltered = 0
     }
 
     return resolved;

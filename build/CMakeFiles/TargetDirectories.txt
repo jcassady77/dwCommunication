@@ -98,3 +98,10 @@
 /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/std_msgs_generate_messages_py.dir
 /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/install/strip.dir
 /home/rog/Documents/dwCommunication/build/dw_listener/CMakeFiles/dw_listener_generate_messages.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/install/strip.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/edit_cache.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/list_install_components.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/test.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/install/local.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/rebuild_cache.dir
+/home/rog/Documents/dwCommunication/build/kalman/CMakeFiles/install.dir

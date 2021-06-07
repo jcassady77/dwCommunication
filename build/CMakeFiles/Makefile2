@@ -1904,6 +1904,24 @@ clean: dw_listener/CMakeFiles/dw_listener_generate_messages.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory kalman
+
+# Convenience name for "all" pass in the directory.
+kalman/all:
+
+.PHONY : kalman/all
+
+# Convenience name for "clean" pass in the directory.
+kalman/clean:
+
+.PHONY : kalman/clean
+
+# Convenience name for "preinstall" pass in the directory.
+kalman/preinstall:
+
+.PHONY : kalman/preinstall
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.
