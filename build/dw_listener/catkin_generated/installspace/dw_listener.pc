@@ -1,8 +1,0 @@
-prefix=/home/rog/Documents/dwCommunication/install
-
-Name: dw_listener
-Description: Description of dw_listener
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: message_runtime
