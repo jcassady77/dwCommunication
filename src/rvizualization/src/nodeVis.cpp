@@ -11,8 +11,8 @@ double yPos = 0;
 
 void dataCallback(const dw_listener::nodeData::ConstPtr& msg)
 {
-  xPos = msg->XcoordGateFiltered;
-  yPos = msg->YcoordGateFiltered;
+  xPos = static_cast<double>(msg->XcoordGateFiltered) / 100.;
+  yPos = static_cast<double>(msg->YcoordGateFiltered) / 100.;
 }
 // %Tag(INIT)%
 int main( int argc, char** argv )
@@ -36,7 +36,7 @@ int main( int argc, char** argv )
   {
     visualization_msgs::Marker marker;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-    marker.header.frame_id = "/my_frame";
+    marker.header.frame_id = "/sensor";
     marker.header.stamp = ros::Time::now();
 // %EndTag(MARKER_INIT)%
 
