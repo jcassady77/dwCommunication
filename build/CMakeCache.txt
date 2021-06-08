@@ -366,24 +366,11 @@ gtest_hide_internal_symbols:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
-//Value Computed by CMake
-kalman_BINARY_DIR:STATIC=/home/rog/Documents/dwCommunication/build/kalman
-
-kalman_DIR:PATH=
-
-//Value Computed by CMake
-kalman_SOURCE_DIR:STATIC=/home/rog/Documents/dwCommunication/src/kalman
-
-//Value Computed by CMake
-kalman_filters_BINARY_DIR:STATIC=/home/rog/Documents/dwCommunication/build/kalman_filters
-
-kalman_filters_DIR:PATH=
-
-//Value Computed by CMake
-kalman_filters_SOURCE_DIR:STATIC=/home/rog/Documents/dwCommunication/src/kalman_filters
+//The directory containing a CMake configuration file for kalman.
+kalman_DIR:PATH=kalman_DIR-NOTFOUND
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/melodic/lib/libxmlrpcpp.so
+lib:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.so
 
 //The directory containing a CMake configuration file for message_generation.
 message_generation_DIR:PATH=/opt/ros/melodic/share/message_generation/cmake
@@ -537,7 +524,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

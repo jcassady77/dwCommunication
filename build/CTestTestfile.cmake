@@ -7,4 +7,3 @@
 subdirs("gtest")
 subdirs("serial")
 subdirs("dw_listener")
-subdirs("kalman")

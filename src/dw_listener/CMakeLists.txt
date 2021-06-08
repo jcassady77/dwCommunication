@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(dw_listener)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+#add_compile_options(-std=c++11 -O1 -larmadillo -llapack -lblas)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -12,7 +12,6 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   serial
   message_generation
-  kalman
 )
 
 ## System dependencies are found with CMake's conventions
@@ -150,6 +149,7 @@ add_dependencies(dw_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_T
 ## Specify libraries to link a library or executable target against
 target_link_libraries(dw_node
 	${catkin_LIBRARIES}
+  armadillo
 )
 
 #############

@@ -1,5 +1,6 @@
 #include "dw_node.h"
 
+#define ARMA_USE_LAPACK
 //#include "kalman/kalman_filter.h"
 #include <vector>
 #include <random>
@@ -165,16 +166,23 @@ int main(int argc, char **argv)
                 {0.0, dt * dt / 2.0}
                 };
 
-    mat C = {0.0, 1.0, 0.0, 1.0};
-
-    kf::KalmanFilter kf(A, B, C);
+    mat C = {   {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+                };
+    KalmanFilter kf(A, B, C);
 
     // The process and measurement covariances are sort of tunning parameters
-    mat Q = {{0.001, 0.0}, {0.0, 0.001}};
-    mat R = {1.0};   
+    mat Q = {   {1.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0} 
+                };
+    mat R = {    {1.0, 0.0},
+                {0.0, 1.0}
+                };  
 
-    //kf.setProcessCovariance(Q);
-    //kf.setOutputCovariance(R);
+    kf.setProcessCovariance(Q);
+    kf.setOutputCovariance(R);
 
     try {
         //Set up monitor for serial port
@@ -223,10 +231,18 @@ int main(int argc, char **argv)
 
             //Kalman Filter
 
-            //kf.updateState({message.Xaccel.data, message.Yaccel.data}, {message.XcoordGateFiltered.data, message.YcoordGateFiltered.data});
+            kf.updateState({
+                    static_cast<double>(message.Xaccel.data), 
+                    static_cast<double>(message.Yaccel.data)}, {
+                    static_cast<double>(message.XcoordGateFiltered.data), 
+                    static_cast<double>(message.YcoordGateFiltered.data)});
             
-            //vec estimate = kf.getEstimate();
+            vec estimate = kf.getEstimate();
+
             //SEND TO ROS MSG
+            message.XcoordKalmanFiltered.data = estimate(0);
+            message.YcoordKalmanFiltered.data = estimate(1);
+            
 
 
             dw_pub.publish(message.buildRosMsg());

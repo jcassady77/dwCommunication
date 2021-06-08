@@ -18,19 +18,13 @@ set(CMAKE_MAKEFILE_DEPENDS
   "dw_listener/catkin_generated/ordered_paths.cmake"
   "dw_listener/catkin_generated/package.cmake"
   "dw_listener/cmake/dw_listener-genmsg.cmake"
-  "kalman/catkin_generated/ordered_paths.cmake"
-  "kalman/catkin_generated/package.cmake"
   "serial/catkin_generated/package.cmake"
   "/home/rog/Documents/dwCommunication/devel/share/dw_listener/cmake/dw_listener-msg-paths.cmake"
-  "/home/rog/Documents/dwCommunication/devel/share/kalman/cmake/kalmanConfig-version.cmake"
-  "/home/rog/Documents/dwCommunication/devel/share/kalman/cmake/kalmanConfig.cmake"
   "/home/rog/Documents/dwCommunication/devel/share/serial/cmake/serialConfig-version.cmake"
   "/home/rog/Documents/dwCommunication/devel/share/serial/cmake/serialConfig.cmake"
   "/home/rog/Documents/dwCommunication/src/CMakeLists.txt"
   "/home/rog/Documents/dwCommunication/src/dw_listener/CMakeLists.txt"
   "/home/rog/Documents/dwCommunication/src/dw_listener/package.xml"
-  "/home/rog/Documents/dwCommunication/src/kalman/CMakeLists.txt"
-  "/home/rog/Documents/dwCommunication/src/kalman/package.xml"
   "/home/rog/Documents/dwCommunication/src/serial/CMakeLists.txt"
   "/home/rog/Documents/dwCommunication/src/serial/package.xml"
   "/home/rog/Documents/dwCommunication/src/serial/tests/CMakeLists.txt"
@@ -217,7 +211,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "serial/CMakeFiles/CMakeDirectoryInformation.cmake"
   "serial/tests/CMakeFiles/CMakeDirectoryInformation.cmake"
   "dw_listener/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "kalman/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:

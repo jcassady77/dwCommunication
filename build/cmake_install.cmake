@@ -133,7 +133,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/rog/Documents/dwCommunication/build/gtest/cmake_install.cmake")
   include("/home/rog/Documents/dwCommunication/build/serial/cmake_install.cmake")
   include("/home/rog/Documents/dwCommunication/build/dw_listener/cmake_install.cmake")
-  include("/home/rog/Documents/dwCommunication/build/kalman/cmake_install.cmake")
 
 endif()
 
