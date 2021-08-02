@@ -13,6 +13,15 @@ void dataCallback(const dw_listener::nodeData::ConstPtr& msg)
 {
   xPos = static_cast<double>(msg->XcoordGateFiltered) / 100.;
   yPos = static_cast<double>(msg->YcoordGateFiltered) / 100.;
+
+  //double tempX = xPos*cos(-70) - yPos*sin(-70);
+  //double tempY = yPos*cos(-70) + xPos*sin(-70);
+  double tempX = fmod(xPos*10, 10.)/50;
+  double tempY = fmod(yPos*10, 10.)/50;
+
+
+  xPos = tempX+4.9;
+  yPos = tempY+8.5;
 }
 // %Tag(INIT)%
 int main( int argc, char** argv )
@@ -37,7 +46,6 @@ int main( int argc, char** argv )
     visualization_msgs::Marker marker;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
     marker.header.frame_id = "/sensor";
-    marker.header.stamp = ros::Time::now();
 // %EndTag(MARKER_INIT)%
 
     // Set the namespace and id for this marker.  This serves to create a unique ID
@@ -70,15 +78,15 @@ int main( int argc, char** argv )
 
     // Set the scale of the marker -- 1x1x1 here means 1m on a side
 // %Tag(SCALE)%
-    marker.scale.x = 10.0;
-    marker.scale.y = 10.0;
-    marker.scale.z = 10.0;
+    marker.scale.x = 0.4;
+    marker.scale.y = 0.4;
+    marker.scale.z = 0.4;
 // %EndTag(SCALE)%
 
     // Set the color -- be sure to set alpha to something non-zero!
 // %Tag(COLOR)%
-    marker.color.r = 0.0f;
-    marker.color.g = 1.0f;
+    marker.color.r = 1.0f;
+    marker.color.g = 0.0f;
     marker.color.b = 0.0f;
     marker.color.a = 1.0;
 // %EndTag(COLOR)%

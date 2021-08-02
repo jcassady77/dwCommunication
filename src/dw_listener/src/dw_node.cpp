@@ -18,6 +18,8 @@
 #include <cmath>
 #include "kalman_filter.h"
 
+#include <visualization_msgs/Marker.h>
+
 #include <armadillo>
 #include <stdexcept>
 using namespace arma;
@@ -125,7 +127,14 @@ void dw_data::gateFilter2() {
     XcoordGateFiltered.data = meanX;
     YcoordGateFiltered.data = meanY;
 }
-
+/*
+void IMUcallback(const SomePackage::SomeMessageType::ConstPtr& msg)
+{
+    IMUXaccel.data = msg.linear_acceleration[x]
+    IMUYaccel.data = msg.linear_acceleration[y]
+    IMUZaccel.data = msg.linear_acceleration[z]
+}
+*/
 int main(int argc, char **argv)
 {
     //Iniitalize ros structs
@@ -134,6 +143,8 @@ int main(int argc, char **argv)
     ros::Publisher dw_pub = n.advertise<dw_listener::nodeData>("dw_data", 1000);
     double dt = 0.1;
     ros::Rate loop_rate(dt*100);
+
+    //ros::Subscriber IMUsub = n.subscribe("/imu/data", 100, IMUcallback);
 
     //Kalman Filter Variables
     double measurement_mu = 0.0;      // Mean
@@ -198,6 +209,7 @@ int main(int argc, char **argv)
         while (ros::ok()){
             //Reading serial port
             msg.data = monitor.read(200);
+            //ROS_INFO("%s", msg.data.c_str());
             //Simplifying the input a little
             try {
                 msg.data = msg.data.substr(14, msg.data.size()-4);
@@ -209,19 +221,23 @@ int main(int argc, char **argv)
             
             //Assign specific values to the nice message struct
             try {
+                
                 message.tagAddress.data = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
                 message.rangeNum.data = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
-                message.timeOfReception.data = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
-                message.distance.data = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
-                message.degrees.data = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
-                message.Xcoord.data = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
-                message.Ycoord.data = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
-                message.clockOffset.data = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
-                message.serviceData.data = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
-                message.Xaccel.data = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
-                message.Yaccel.data = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
-                message.Zaccel.data = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
-
+                //message.timeOfReception.data = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
+                //message.distance.data = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
+                //message.degrees.data = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
+                //message.Xcoord.data = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
+                //message.Ycoord.data = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
+                //message.clockOffset.data = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
+                //message.serviceData.data = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
+                //message.Xaccel.data = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
+                //message.Yaccel.data = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
+                //message.Zaccel.data = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
+                
+                //message.Xaccel.data = IMUXaccel.data;
+                //message.Yaccel.data = IMUYaccel.data;
+                //message.Zaccel.data = IMUZaccel.data;
                 
             } catch(std::exception& err) {
                 ROS_INFO("Error while building dw_data:  %s", err.what());

@@ -53,9 +53,14 @@ class dw_data {
         std_msgs::Int64 XcoordKalmanFiltered;
         std_msgs::Int64 YcoordKalmanFiltered;
 
+        double IMUXaccel;
+        double IMUYaccel;
+        double IMUZaccel;
+
         //Methods
         dw_listener::nodeData buildRosMsg();
         void updateHistory();
         void gateFilter();
         void gateFilter2();
+        //void IMUcallback();
 };
