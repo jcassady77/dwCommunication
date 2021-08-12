@@ -1,4 +1,5 @@
-#include "dw_listener/nodeData.h"
+#include <dw_listener/nodeData.h>
+#include <dw_listener/dwFiltered.h>
 
 // %Tag(FULLTEXT)%
 // %Tag(INCLUDES)%
@@ -9,19 +10,10 @@
 double xPos = 0;
 double yPos = 0;
 
-void dataCallback(const dw_listener::nodeData::ConstPtr& msg)
+void dataCallback(const dw_listener::dwFiltered::ConstPtr& msg)
 {
-  xPos = static_cast<double>(msg->XcoordGateFiltered) / 100.;
-  yPos = static_cast<double>(msg->YcoordGateFiltered) / 100.;
-
-  //double tempX = xPos*cos(-70) - yPos*sin(-70);
-  //double tempY = yPos*cos(-70) + xPos*sin(-70);
-  double tempX = fmod(xPos*10, 10.)/50;
-  double tempY = fmod(yPos*10, 10.)/50;
-
-
-  xPos = tempX+4.9;
-  yPos = tempY+8.5;
+  xPos = static_cast<double>(msg->XcoordKalmanFiltered) / 100.;
+  yPos = static_cast<double>(msg->YcoordKalmanFiltered) / 100.;
 }
 // %Tag(INIT)%
 int main( int argc, char** argv )
@@ -32,7 +24,7 @@ int main( int argc, char** argv )
   ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 
 //Ros subscribers
-  ros::Subscriber sub = n.subscribe("/dw_data", 100, dataCallback);
+  ros::Subscriber sub = n.subscribe("/dw_filterer", 100, dataCallback);
 // %EndTag(INIT)%
 
   // Set our initial shape type to be a cube

@@ -29,177 +29,40 @@ using namespace kf;
 dw_listener::nodeData dw_data::buildRosMsg() {
     dw_listener::nodeData msg;
     msg.tagAddress = tagAddress.data;
-    msg.rangeNum = rangeNum.data;
-    msg.timeOfReception = timeOfReception.data;
-    msg.distance = distance.data;
-    msg.degrees = degrees.data;
-    msg.Xcoord = Xcoord.data;
-    msg.Ycoord = Ycoord.data;
-    msg.XcoordGateFiltered = XcoordGateFiltered.data;
-    msg.YcoordGateFiltered = YcoordGateFiltered.data;
-    msg.XcoordKalmanFiltered = XcoordKalmanFiltered.data;
-    msg.YcoordKalmanFiltered = YcoordKalmanFiltered.data;
-    msg.clockOffset = clockOffset.data;
-    msg.serviceData = serviceData.data;
-    msg.Xaccel = Xaccel.data;
-    msg.Yaccel = Yaccel.data;
-    msg.Zaccel = Zaccel.data;
+    msg.rangeNum = (float) rangeNum;
+    msg.timeOfReception = (float) timeOfReception;
+    msg.distance = (float) distance;
+    msg.degrees = (float) degrees;
+    msg.Xcoord = (float) Xcoord;
+    msg.Ycoord = (float) Ycoord;
+    msg.clockOffset = (float) clockOffset;
+    msg.serviceData = (float) serviceData;
     return msg;
 }
 
-void dw_data::updateHistory() {
-    int i;
-    for (i = FILTER_SIZE-1; i > 0; i--)
-    {
-        this->xHistory[i] = this->xHistory[i-1];
-        this->yHistory[i] = this->yHistory[i-1];
-    }
-    this->xHistory[0] = this->Xcoord;
-    this->yHistory[0] = this->Ycoord;
+int countRightBrackets(string s) {
+    int count = 0;
+    for (int i = 0; i < s.size(); i++)
+        if (s[i] == '}') count++;
+
+    return count;
 }
 
-void dw_data::gateFilter() {
-    int i;
-    //Find Means
-    int meanX = 0;
-    int meanY = 0;
-    for (i = FILTER_SIZE-1; i > 0; i--)
-    {
-        meanX += xHistory[i].data;
-        meanY += yHistory[i].data;
-    }
-    meanX /= FILTER_SIZE;
-    meanY /= FILTER_SIZE;
-
-    //find stdev
-    int stdevX = 0;
-    int stdevY = 0;
-    for (i = FILTER_SIZE-1; i > 0; i--)
-    {
-        stdevX += abs(meanX - xHistory[i].data);
-        stdevY += abs(meanY - yHistory[i].data);
-    }
-    stdevX /= FILTER_SIZE;
-    stdevY /= FILTER_SIZE;
-
-    stdevX = 10;
-    stdevY = 10;
-    //Implement Gate
-    if (abs(Xcoord.data - xHistory[0].data) > (stdevX * GATE_VALUE))
-    {
-        XcoordGateFiltered.data = xHistory[0].data;
-        //this->Xcoord = this->xHistory[0];
-    }
-    if (abs(Ycoord.data - yHistory[0].data) > (stdevY * GATE_VALUE))
-    {
-        YcoordGateFiltered.data = yHistory[0].data;
-        //this->Ycoord = this->yHistory[0];
-    }
-    
-}
-
-
-void dw_data::gateFilter2() {
-    int i;
-    //Find Means
-    int meanX = Xcoord.data;
-    int meanY = Ycoord.data;
-    int xCount = 1;
-    int yCount = 1;
-    for (i = FILTER_SIZE-1; i > 0; i--)
-    {
-        if (abs(xHistory[i].data - xHistory[i+1].data)> GATE_VALUE)
-        {
-            meanX += xHistory[i].data;
-            xCount += 1;
-        }
-        if (abs(yHistory[i].data - yHistory[i+1].data)> GATE_VALUE)
-        {
-            meanY += yHistory[i].data;
-            yCount += 1;
-        }
-        
-    }
-    
-    meanX /= xCount;// + 1;
-    meanY /= yCount;// + 1;
-    
-    XcoordGateFiltered.data = meanX;
-    YcoordGateFiltered.data = meanY;
-}
-/*
-void IMUcallback(const SomePackage::SomeMessageType::ConstPtr& msg)
-{
-    IMUXaccel.data = msg.linear_acceleration[x]
-    IMUYaccel.data = msg.linear_acceleration[y]
-    IMUZaccel.data = msg.linear_acceleration[z]
-}
-*/
 int main(int argc, char **argv)
 {
     //Iniitalize ros structs
-    ros::init(argc, argv, "dw");
+    ros::init(argc, argv, "dw_node");
     ros::NodeHandle n;
     ros::Publisher dw_pub = n.advertise<dw_listener::nodeData>("dw_data", 1000);
     double dt = 0.1;
     ros::Rate loop_rate(dt*100);
 
-    //ros::Subscriber IMUsub = n.subscribe("/imu/data", 100, IMUcallback);
-
-    //Kalman Filter Variables
-    double measurement_mu = 0.0;      // Mean
-    double measurement_sigma = 0.5;   // Standard deviation
-
-    double process_mu = 0.0;
-    double process_sigma = 0.05;
-
-    default_random_engine generator;
-    normal_distribution<double> measurement_noise(measurement_mu, measurement_sigma);
-    normal_distribution<double> process_noise(process_mu, process_sigma);
-    
-    double trueXaccel = 0;
-    double trueYaccel = 0;
-    double trueXvel = 0;
-    double trueYvel = 0;
-    double trueXDpos = 0;
-    double trueYDpos = 0;
-
-    // Preparing KF
-    mat A = {   {1.0, 0.0, 0.0, 0.0},
-                {dt, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 1.0, 0.0},
-                {0.0, 0.0, dt, 1.0} 
-                };
-
-    mat B = {   {dt, 0.0},
-                {dt * dt / 2.0, 0.0},
-                {0.0, dt},
-                {0.0, dt * dt / 2.0}
-                };
-
-    mat C = {   {0.0, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 0.0, 1.0}
-                };
-    KalmanFilter kf(A, B, C);
-
-    // The process and measurement covariances are sort of tunning parameters
-    mat Q = {   {1.0, 0.0, 0.0, 0.0},
-                {0.0, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 1.0, 0.0},
-                {0.0, 0.0, 0.0, 1.0} 
-                };
-    mat R = {    {1.0, 0.0},
-                {0.0, 1.0}
-                };  
-
-    kf.setProcessCovariance(Q);
-    kf.setOutputCovariance(R);
 
     try {
         //Set up monitor for serial port
         serial::Serial monitor("/dev/ttyACM0", 115200);
         std_msgs::String msg;
-        dw_data message;
+        
         //if(monitor.isOpen()) {
         //} else {
         //    monitor.open();
@@ -208,63 +71,53 @@ int main(int argc, char **argv)
 
         while (ros::ok()){
             //Reading serial port
-            msg.data = monitor.read(200);
-            //ROS_INFO("%s", msg.data.c_str());
-            //Simplifying the input a little
-            try {
-                msg.data = msg.data.substr(14, msg.data.size()-4);
-            } catch(std::exception& err) {
-                ROS_INFO("Incompatable Message Length:  %s", err.what());
-            }
-            //Displays raw string output post simplification
-            //ROS_INFO("%s", msg.data.c_str());
+            msg.data = monitor.read(10000);
             
-            //Assign specific values to the nice message struct
+            //ROS_INFO("%s", msg.data.c_str());
+
+            //Splitting up messages from different nodes
+            int nodeCount = 0;
             try {
+                nodeCount = countRightBrackets(msg.data.c_str())/2;
+            } catch(std::exception& err) {
+                ROS_INFO("Message Parsed Incorrectly. Found %d Right Brackets", countRightBrackets(msg.data.c_str()));
+            }   
+            std::vector<std_msgs::String> splitMsg;
+            int start = 0;
+            for (int i = 0; i < nodeCount; i ++) {
+                std_msgs::String tempdata;
+                tempdata.data = msg.data.substr(start, msg.data.find("}}", start+2)+2);
+                splitMsg.push_back(tempdata);
+                start = msg.data.find("}}", start+2)+2;
+            }
+            
+            //Generate and send off messages
+            try {
+                //for each node data
+                for (int i = 0; i < splitMsg.size(); i++) {
+                    dw_data message;
+                    //ROS_INFO("--------------");
+                    //Assign specific values to the nice message struct
+                    message.tagAddress.data = splitMsg[i].data.substr(splitMsg[i].data.find("\"a16\"")+7,(splitMsg[i].data.find("\"R\"")-splitMsg[i].data.find("\"a16\""))-9);
+                    message.rangeNum = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"R\"")+4, (splitMsg[i].data.find("\"T\"")-splitMsg[i].data.find("\"R\"")-5)));
+                    message.timeOfReception = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"T\"")+4, (splitMsg[i].data.find("\"D\"")-splitMsg[i].data.find("\"T\"")-5)));
+                    message.distance = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"D\"")+4, (splitMsg[i].data.find("\"P\"")-splitMsg[i].data.find("\"D\"")-5)));
+                    message.degrees = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"P\"")+4, (splitMsg[i].data.find("\"Xcm\"")-splitMsg[i].data.find("\"P\"")-5)));
+                    message.Xcoord = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"Xcm\"")+6, (splitMsg[i].data.find("\"Ycm\"")-splitMsg[i].data.find("\"Xcm\"")-7)));
+                    message.Ycoord = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"Ycm\"")+6, (splitMsg[i].data.find("\"O\"")-splitMsg[i].data.find("\"Ycm\"")-7)));
+                    message.clockOffset = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"O\"")+4, (splitMsg[i].data.find("\"V\"")-splitMsg[i].data.find("\"O\"")-5)));
+                    message.serviceData = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"V\"")+4, (splitMsg[i].data.find("\"X\"")-splitMsg[i].data.find("\"V\"")-5)));
                 
-                message.tagAddress.data = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
-                message.rangeNum.data = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
-                //message.timeOfReception.data = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
-                //message.distance.data = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
-                //message.degrees.data = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
-                //message.Xcoord.data = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
-                //message.Ycoord.data = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
-                //message.clockOffset.data = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
-                //message.serviceData.data = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
-                //message.Xaccel.data = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
-                //message.Yaccel.data = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
-                //message.Zaccel.data = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
+                    dw_pub.publish(message.buildRosMsg());
+                }
                 
-                //message.Xaccel.data = IMUXaccel.data;
-                //message.Yaccel.data = IMUYaccel.data;
-                //message.Zaccel.data = IMUZaccel.data;
                 
             } catch(std::exception& err) {
                 ROS_INFO("Error while building dw_data:  %s", err.what());
             }
-            //Filter with gateing 
-            message.gateFilter2();
 
-            //Kalman Filter
-
-            kf.updateState({
-                    static_cast<double>(message.Xaccel.data), 
-                    static_cast<double>(message.Yaccel.data)}, {
-                    static_cast<double>(message.XcoordGateFiltered.data), 
-                    static_cast<double>(message.YcoordGateFiltered.data)});
             
-            vec estimate = kf.getEstimate();
-
-            //SEND TO ROS MSG
-            message.XcoordKalmanFiltered.data = estimate(0);
-            message.YcoordKalmanFiltered.data = estimate(1);
-            
-
-
-            dw_pub.publish(message.buildRosMsg());
-            message.updateHistory();
-            
-
+            //ROS loop
             ros::spinOnce();
             loop_rate.sleep();
         }
@@ -275,82 +128,3 @@ int main(int argc, char **argv)
     return 0;
 
 }
-
-//  CODE FROM DECAWAVE GUI
-
-/**
-* @brief motionFilter()
-*        perfrom the motion-filter on the x and y inputs
-* */
-/**
-void motionFilter(double* x, double* y, int i)
-{
-     //Need to generate a list of past X and Y positions
-     tag_reports_t rp = _tagList.at(i);
-    
-    //once we have gotten a 'filter size' number of locations
-     if (rp.filterHisIdx >= FILTER_SIZE)
-     {
-         rp.filterHisIdx = static_cast<int>(fmod(rp.filterHisIdx,FILTER_SIZE));
-         rp.motionFilterReady = true;
-     }
-
-     rp.estXHis[rp.filterHisIdx] = *x;
-     rp.estYHis[rp.filterHisIdx] = *y;
-
-     rp.filterHisIdx = rp.filterHisIdx + 1;
-
-     if (_motionFilterOn)
-     {
-         if(rp.motionFilterReady)
-         {
-             double tempX[FILTER_SIZE];
-             memcpy(tempX, &rp.estXHis[0], sizeof(tempX));
-
-             double tempY[FILTER_SIZE];
-             memcpy(tempY, &rp.estYHis[0], sizeof(tempY));
-
-             r95Sort(tempX,0,FILTER_SIZE-1);
-
-             *x = (tempX[FILTER_SIZE/2] + tempX[FILTER_SIZE/2-1])/2;
-
-             r95Sort(tempY,0,FILTER_SIZE-1);
-
-             *y = (tempY[FILTER_SIZE/2] + tempY[FILTER_SIZE/2-1])/2;
-         }
-
-     }
-
-     //update current pos
-     _tagList.replace(i, rp);
- }
-* */
-/**
-* @brief r95Sort()
-*        R95 sort used by the motion filter function above
-* */
-/**
-void r95Sort (double s[], int l, int r)
-{
-    int i,j;
-    double x;
-    if(l<r)
-    {
-        i = l;
-        j = r;
-        x = s[i];
-        while(i<j)
-        {
-            while (i<j&&s[j]>x) j--;
-            if (i<j) s[i++] = s[j];
-            while (i<j&&s[i]<x) i++;
-            if (i < j) s[j--] = s[i];
-        }
-        s[i] = x;
-        r95Sort(s, l, i-1);
-        r95Sort(s, i+1, r);
-    }
-
-}
-* */
-

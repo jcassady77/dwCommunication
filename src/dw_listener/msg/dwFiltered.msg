@@ -1,0 +1,4 @@
+float64 XcoordGateFiltered
+float64 YcoordGateFiltered
+float64 XcoordKalmanFiltered
+float64 YcoordKalmanFiltered
