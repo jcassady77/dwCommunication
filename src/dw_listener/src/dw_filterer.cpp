@@ -134,6 +134,50 @@ void dwCallback(const dw_listener::nodeData::ConstPtr& msg)
     nodeInfo.Xcoord = msg->Xcoord;
     nodeInfo.Ycoord = msg->Ycoord;
 }
+
+//EKF STUFF ------------------------------------------------------------------------
+// Process constants
+const double m = 1.0;   // Mass in kg
+const double g = 9.8;   // Gravitational accel.
+const double d = 1.0;   // Length in m
+const double b = 0.5;   // Friction coef. in 1/s
+
+// Process function as standard function
+vec processFunction(const vec& q, const vec& u) {
+  vec q_pred = vec(2).zeros();
+
+  q_pred(0) = q(0) + q(1) * system_dt;
+  q_pred(1) = q(1) + (m * (u(0) - g) * d * sin(q(0)) - b * q(1)) * system_dt /
+              (m * d * d);
+
+  return q_pred;
+}
+
+// Output function as lambda
+auto outputFunction = [](const vec& q)->vec{
+  return {d * sin(q(0)), d * cos(q(0))}; };
+
+// Process Jacobian as member function
+struct ProcessJacobian {
+  mat processJacobian(const vec& q, const vec& u) {
+    double a11 = 1.0;
+    double a12 = system_dt;
+    double a21 = (u(0) - g) * cos(q(0)) * system_dt / d;
+    double a22 = 1.0 - b * system_dt / (m * d * d);
+
+    return { {a11, a12},
+             {a21, a22} };
+  }
+}
+
+// Output Jacobian as function object
+struct outputJacobian {
+  mat operator()(const vec& q) const {
+    return { { d * cos(q(0)), 0.0},
+             {-d * sin(q(0)), 0.0} };
+  }
+}
+//EKF STUFF ----------------------------------------------------------------------------
 int main(int argc, char **argv)
 {
     //Iniitalize ros structs
@@ -147,53 +191,38 @@ int main(int argc, char **argv)
     //ros::Subscriber IMUsub = n.subscribe("/imu/data", 100, IMUcallback);
 
     //Kalman Filter Variables
-    double measurement_mu = 0.0;      // Mean
-    double measurement_sigma = 0.5;   // Standard deviation
+    ExtendedKalmanFilter ekf(1, 2, 2);
 
-    double process_mu = 0.0;
-    double process_sigma = 0.05;
+    ekf.setProcessFunction(processFunction);
 
-    default_random_engine generator;
-    normal_distribution<double> measurement_noise(measurement_mu, measurement_sigma);
-    normal_distribution<double> process_noise(process_mu, process_sigma);
+    ekf.setOutputFunction(outputFunction);
+
+    ProcessJacobian s;
+    using std::placeholders::_1;
+    using std::placeholders::_2;
+    ekf.setProcessJacobian(std::bind(&ProcessJacobian::processJacobian, &s, _1, _2));
+
+    ekf.setOutputJacobian(outputJacobian());
+
+
+    mat Q = {{0.001, 0.0}, {0.0, 0.001}};
+    mat R = {{1.0, 0.0}, {0.0, 1.0}};
+
+    ekf.setProcessCovariance(Q);
+    ekf.setOutputCovariance(R);
     
-    double trueXaccel = 0;
-    double trueYaccel = 0;
-    double trueXvel = 0;
-    double trueYvel = 0;
-    double trueXDpos = 0;
-    double trueYDpos = 0;
+     // Initial values (unknown by EKF)
+    time[0] = 0.0;
 
-    // Preparing KF
-    mat A = {   {1.0, 0.0, 0.0, 0.0},
-                {dt, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 1.0, 0.0},
-                {0.0, 0.0, dt, 1.0} 
-                };
+    true_ang[0] = 1.5;
+    true_vel[0] = 0.0;
+    true_acc[0] = 0.0;
 
-    mat B = {   {dt, 0.0},
-                {dt * dt / 2.0, 0.0},
-                {0.0, dt},
-                {0.0, dt * dt / 2.0}
-                };
+    measured_xy[0] = {0.0, 0.0};
+    measured_ang[0] = 0.0;
+    estimated_ang[0] = 0.0;
+    believed_acc[0] = 0.0;
 
-    mat C = {   {0.0, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 0.0, 1.0}
-                };
-    KalmanFilter kf(A, B, C);
-
-    // The process and measurement covariances are sort of tunning parameters
-    mat Q = {   {1.0, 0.0, 0.0, 0.0},
-                {0.0, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 1.0, 0.0},
-                {0.0, 0.0, 0.0, 1.0} 
-                };
-    mat R = {    {1.0, 0.0},
-                {0.0, 1.0}
-                };  
-
-    kf.setProcessCovariance(Q);
-    kf.setOutputCovariance(R);
 
     try {
 
@@ -203,37 +232,21 @@ int main(int argc, char **argv)
             filteredData.YcoordGateFiltered = 0;
             filteredData.XcoordKalmanFiltered = 0;
             filteredData.XcoordKalmanFiltered = 0;
-                //message.tagAddress.data = msg.data.substr(msg.data.find("a16")+6, (msg.data.find("R")-msg.data.find("a16")-9));
-                //message.rangeNum.data = stoi(msg.data.substr(msg.data.find("R")+3, (msg.data.find("T")-msg.data.find("R")-5)));
-                //message.timeOfReception.data = stoi(msg.data.substr(msg.data.find("T")+3, (msg.data.find("D")-msg.data.find("T")-5)));
-                //message.distance.data = stoi(msg.data.substr(msg.data.find("D")+3, (msg.data.find("P")-msg.data.find("D")-5)));
-                //message.degrees.data = stoi(msg.data.substr(msg.data.find("P")+3, (msg.data.find("Xcm")-msg.data.find("P")-5)));
-                //message.Xcoord.data = stoi(msg.data.substr(msg.data.find("Xcm")+5, (msg.data.find("Ycm")-msg.data.find("Xcm")-7)));
-                //message.Ycoord.data = stoi(msg.data.substr(msg.data.find("Ycm")+5, (msg.data.find("O")-msg.data.find("Ycm")-7)));
-                //message.clockOffset.data = stoi(msg.data.substr(msg.data.find("O")+3, (msg.data.find("V")-msg.data.find("O")-5)));
-                //message.serviceData.data = stoi(msg.data.substr(msg.data.find("V")+3, (msg.data.find("X\"")-msg.data.find("V")-5)));
-                //message.Xaccel.data = stoi(msg.data.substr(msg.data.find("X\"")+3, (msg.data.find("Y\"")-msg.data.find("X\"")-5)));
-                //message.Yaccel.data = stoi(msg.data.substr(msg.data.find("Y\"")+3, (msg.data.find("Z\"")-msg.data.find("Y\"")-5)));
-                //message.Zaccel.data = stoi(msg.data.substr(msg.data.find("Z\"")+3, (msg.data.find("}}")-msg.data.find("Z\"")-3)));
-                
-                //message.Xaccel.data = IMUXaccel.data;
-                //message.Yaccel.data = IMUYaccel.data;
-                //message.Zaccel.data = IMUZaccel.data;
-                
-            //Filter with gateing 
+
+            //Filter with gating 
            
             filteredData.gateFilter2(nodeInfo);
  
             //Kalman Filter
 
-            kf.updateState({
+            ekf.updateState({
                     static_cast<double>(0), //X accel
                     static_cast<double>(0)}, //Y accel
                     {
                     static_cast<double>(filteredData.XcoordGateFiltered), 
                     static_cast<double>(filteredData.YcoordGateFiltered)});
             
-            vec estimate = kf.getEstimate();
+            vec estimate = ekf.getEstimate();
 
             //SEND TO ROS MSG
             filteredData.XcoordKalmanFiltered = estimate(0);
