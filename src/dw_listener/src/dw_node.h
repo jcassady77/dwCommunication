@@ -8,7 +8,7 @@
 class dw_data {
     public:
         //Raw Data from Serial
-        std_msgs::String tagAddress;
+        std::string tagAddress;
         double rangeNum;
         double timeOfReception;
         double distance;

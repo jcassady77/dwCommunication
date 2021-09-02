@@ -36,7 +36,7 @@ double IMUXaccel;
 double IMUYaccel;
 double IMUZaccel;
 
-
+std::string nodeID;
 
 dw_listener::dwFiltered dw_filtered::buildRosMsgFilter() {
     dw_listener::dwFiltered msg;
@@ -136,23 +136,29 @@ void IMUcallback(const sensor_msgs::Imu::ConstPtr& msg)
 
 void dwCallback(const dw_listener::nodeData::ConstPtr& msg)
 {
-    nodeInfo.Xcoord = msg->Xcoord;
-    nodeInfo.Ycoord = msg->Ycoord;
+    if (nodeID.compare(msg->tagAddress) == 0) {
+        nodeInfo.tagAddress = msg->tagAddress;
+        nodeInfo.Xcoord = msg->Xcoord;
+        nodeInfo.Ycoord = msg->Ycoord;
+    }
 }
 int main(int argc, char **argv)
 {
+
+    nodeID = (std::string) argv[1];
+
     //Iniitalize ros structs
     ros::init(argc, argv, "dw_filter");
     ros::NodeHandle n;
+
     ros::Publisher dw_pub = n.advertise<dw_listener::dwFiltered>("dw_filterer", 1000);
 
     ros::Subscriber dw_sub = n.subscribe("/dw_data", 1000, dwCallback);
-    ros::Subscriber imu_sub = n.subscribe("/imu/data", 100, IMUcallback);
+    ros::Subscriber imu_sub = n.subscribe("/rc1/imu/data", 100, IMUcallback);
 
     double dt = 0.1;
     ros::Rate loop_rate(dt*100);
 
-    //ros::Subscriber IMUsub = n.subscribe("/imu/data", 100, IMUcallback);
 
     //Kalman Filter Variables
 
@@ -191,33 +197,31 @@ int main(int argc, char **argv)
 
         dw_filtered filteredData; 
         while (ros::ok()){
-            filteredData.XcoordGateFiltered = 0;
-            filteredData.YcoordGateFiltered = 0;
-            filteredData.XcoordKalmanFiltered = 0;
-            filteredData.XcoordKalmanFiltered = 0;
-
-            //Filter with gating 
-           
-            filteredData.gateFilter2(nodeInfo);
- 
-            //Kalman Filter
-
-            kf.updateState({
-                    static_cast<double>(IMUXaccel), //X accel
-                    static_cast<double>(IMUYaccel)}, //Y accel
-                    {
-                    static_cast<double>(filteredData.XcoordGateFiltered), 
-                    static_cast<double>(filteredData.YcoordGateFiltered)});
+            //ROS_INFO("%s ", nodeInfo.tagAddress.c_str());
+            if (nodeID.compare(nodeInfo.tagAddress) == 0) {
+                
+                //Filter with gating 
             
-            vec estimate = kf.getEstimate();
+                filteredData.gateFilter2(nodeInfo);
+    
+                //Kalman Filter
 
-            //SEND TO ROS MSG
-            filteredData.XcoordKalmanFiltered = estimate(0);
-            filteredData.YcoordKalmanFiltered = estimate(1);
-            
-            dw_pub.publish(filteredData.buildRosMsgFilter());
-            filteredData.updateHistory(nodeInfo);
-            
+                kf.updateState({
+                        static_cast<double>(IMUXaccel), //X accel
+                        static_cast<double>(IMUYaccel)}, //Y accel
+                        {
+                        static_cast<double>(filteredData.XcoordGateFiltered), 
+                        static_cast<double>(filteredData.YcoordGateFiltered)});
+                
+                vec estimate = kf.getEstimate();
+
+                //SEND TO ROS MSG
+                filteredData.XcoordKalmanFiltered = estimate(0);
+                filteredData.YcoordKalmanFiltered = estimate(1);
+                
+                dw_pub.publish(filteredData.buildRosMsgFilter());
+                filteredData.updateHistory(nodeInfo);
+            }
             ros::spinOnce();
             loop_rate.sleep();
         }

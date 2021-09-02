@@ -14,6 +14,9 @@ void dataCallback(const dw_listener::dwFiltered::ConstPtr& msg)
 {
   xPos = static_cast<double>(msg->XcoordKalmanFiltered) / 100.;
   yPos = static_cast<double>(msg->YcoordKalmanFiltered) / 100.;
+
+  //xPos = xPos/10 - 5;
+  //yPos = yPos/10 - 5;
 }
 // %Tag(INIT)%
 int main( int argc, char** argv )
@@ -37,7 +40,7 @@ int main( int argc, char** argv )
   {
     visualization_msgs::Marker marker;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-    marker.header.frame_id = "/sensor";
+    marker.header.frame_id = "/rc1_sensor_init";
 // %EndTag(MARKER_INIT)%
 
     // Set the namespace and id for this marker.  This serves to create a unique ID
