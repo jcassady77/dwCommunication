@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
     try {
         //Set up monitor for serial port
-        serial::Serial monitor("/dev/ttyACM0", 115200);
+        serial::Serial monitor("/dev/ttyACM1", 115200);
         std_msgs::String msg;
         
         //if(monitor.isOpen()) {
