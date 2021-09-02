@@ -28,7 +28,7 @@ using namespace kf;
 
 dw_listener::nodeData dw_data::buildRosMsg() {
     dw_listener::nodeData msg;
-    msg.tagAddress = tagAddress.data;
+    msg.tagAddress = tagAddress;
     msg.rangeNum = (float) rangeNum;
     msg.timeOfReception = (float) timeOfReception;
     msg.distance = (float) distance;
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
                     dw_data message;
                     //ROS_INFO("--------------");
                     //Assign specific values to the nice message struct
-                    message.tagAddress.data = splitMsg[i].data.substr(splitMsg[i].data.find("\"a16\"")+7,(splitMsg[i].data.find("\"R\"")-splitMsg[i].data.find("\"a16\""))-9);
+                    message.tagAddress = splitMsg[i].data.substr(splitMsg[i].data.find("\"a16\"")+7,(splitMsg[i].data.find("\"R\"")-splitMsg[i].data.find("\"a16\""))-9);
                     message.rangeNum = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"R\"")+4, (splitMsg[i].data.find("\"T\"")-splitMsg[i].data.find("\"R\"")-5)));
                     message.timeOfReception = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"T\"")+4, (splitMsg[i].data.find("\"D\"")-splitMsg[i].data.find("\"T\"")-5)));
                     message.distance = stod(splitMsg[i].data.substr(splitMsg[i].data.find("\"D\"")+4, (splitMsg[i].data.find("\"P\"")-splitMsg[i].data.find("\"D\"")-5)));
