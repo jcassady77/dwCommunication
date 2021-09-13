@@ -10,13 +10,25 @@
 double xPos = 0;
 double yPos = 0;
 
+double xPosRaw [5] = {0, 0, 0, 0, 0};
+double yPosRaw [5] = {0, 0, 0, 0, 0};
+
 void dataCallback(const dw_listener::dwFiltered::ConstPtr& msg)
 {
   xPos = static_cast<double>(msg->XcoordKalmanFiltered) / 100.;
   yPos = static_cast<double>(msg->YcoordKalmanFiltered) / 100.;
 
-  //xPos = xPos/10 - 5;
-  //yPos = yPos/10 - 5;
+  //xPos = xPos - 5;
+  //yPos = yPos - 5;
+}
+void dataRawCallback(const dw_listener::nodeData::ConstPtr& msg)
+{
+  ROS_INFO("RAW CALLBACK");
+  int index = atoi((msg->tagAddress).c_str()) - 1;
+
+  xPosRaw[index] = static_cast<double>(msg->Xcoord) / 100.;
+  yPosRaw[index] = static_cast<double>(msg->Ycoord) / 100.;
+
 }
 // %Tag(INIT)%
 int main( int argc, char** argv )
@@ -24,10 +36,15 @@ int main( int argc, char** argv )
   ros::init(argc, argv, "nodeVis");
   ros::NodeHandle n;
   ros::Rate r(10);
-  ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+  ros::Publisher marker_pub0 = n.advertise<visualization_msgs::Marker>("visualization_marker0", 1);
+  ros::Publisher marker_pub1 = n.advertise<visualization_msgs::Marker>("visualization_marker1", 1);
+  ros::Publisher marker_pub2 = n.advertise<visualization_msgs::Marker>("visualization_marker2", 1);
+  ros::Publisher marker_pub3 = n.advertise<visualization_msgs::Marker>("visualization_marker3", 1);
+  ros::Publisher marker_pub4 = n.advertise<visualization_msgs::Marker>("visualization_marker4", 1);
 
 //Ros subscribers
   ros::Subscriber sub = n.subscribe("/dw_filterer", 100, dataCallback);
+  ros::Subscriber subRaw = n.subscribe("/dw_data", 100, dataRawCallback);
 // %EndTag(INIT)%
 
   // Set our initial shape type to be a cube
@@ -60,10 +77,9 @@ int main( int argc, char** argv )
     marker.action = visualization_msgs::Marker::ADD;
 // %EndTag(ACTION)%
 
-    // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
-// %Tag(POSE)%
-    marker.pose.position.x = xPos;
-    marker.pose.position.y = yPos;
+
+    marker.pose.position.x = xPosRaw[0];
+    marker.pose.position.y = yPosRaw[0];
     marker.pose.position.z = 0;
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
@@ -92,7 +108,7 @@ int main( int argc, char** argv )
 
     // Publish the marker
 // %Tag(PUBLISH)%
-    while (marker_pub.getNumSubscribers() < 1)
+    while (marker_pub0.getNumSubscribers() < 1)
     {
       if (!ros::ok())
       {
@@ -102,13 +118,33 @@ int main( int argc, char** argv )
       sleep(1);
       
     }
-    marker_pub.publish(marker);
-// %EndTag(PUBLISH)%
+    marker_pub0.publish(marker);
 
+    marker.pose.position.x = xPosRaw[1];
+    marker.pose.position.y = yPosRaw[1];
+
+    marker_pub1.publish(marker);
+    
+    marker.pose.position.x = xPosRaw[2];
+    marker.pose.position.y = yPosRaw[2];
+
+    marker_pub2.publish(marker);
+
+    marker.pose.position.x = xPosRaw[3];
+    marker.pose.position.y = yPosRaw[3];
+
+    marker_pub3.publish(marker);
+
+    marker.pose.position.x = xPosRaw[4];
+    marker.pose.position.y = yPosRaw[4];
+
+    marker_pub4.publish(marker);
+// %EndTag(PUBLISH)%
     // Cycle between different shapes
     ros::spinOnce();
 // %Tag(SLEEP_END)%
     r.sleep();
+	  
   }
 // %EndTag(SLEEP_END)%
 }
